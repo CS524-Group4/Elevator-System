@@ -17,3 +17,9 @@ class Elevator_System:
 
     def getRequestSize(self):
         return self.rQueue.qsize()
+
+    def goUP(self):
+        print("up")
+
+    def goDown(self):
+        print("down")
