@@ -1,20 +1,19 @@
 class Request:
-    def __init__(self):
-        self.req = {'user':'none', 'priority':0, 'request':'none'}
+    def __init__(self, priority, request):
+        self.priority = priority
+        self.request = request
 
-    def setRequest(self, cust, num, action):
-        self.req['user'] = cust
-        self.req['priority'] = num
-        self.req['request'] = action
+    def get_priority(self):
+        return self.priority
 
-    def getPriority(self):
-        return self.req['priority']
+    def get_action(self):
+        return self.request
 
-    def getRequest(self):
-        return self.req['request']
+    def get_request(self):
+        return (self.priority, self.request)
 
-    def getUser(self):
-        return self.req['user']
+    def __lt__(self, other):
+        self_priority = (self.priority)
+        other_priority = (other.priority)
+        return self_priority < other_priority
 
-    def getRequest(self):
-        return self.req
