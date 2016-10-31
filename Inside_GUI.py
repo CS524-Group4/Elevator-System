@@ -12,23 +12,23 @@ class Inside_GUI:
     self.slogan = Button(frame,
                          text="1",
                          command=self.go_first)
-    self.slogan.pack(side=LEFT)
+    self.slogan.pack()
     self.slogan = Button(frame,
                          text="2",
                          command=self.go_second)
-    self.slogan.pack(side=LEFT)
+    self.slogan.pack()
     self.slogan = Button(frame,
                          text="3",
                          command=self.go_third)
-    self.slogan.pack(side=LEFT)
+    self.slogan.pack()
     self.slogan = Button(frame,
                          text="4",
                          command=self.go_fourth)
-    self.slogan.pack(side=LEFT)
+    self.slogan.pack()
     self.slogan = Button(frame,
                          text="5",
                          command=self.go_fifth)
-    self.slogan.pack(side=LEFT)
+    self.slogan.pack()
 
   def go_first(self):
       ()
