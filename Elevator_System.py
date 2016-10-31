@@ -8,7 +8,7 @@ class ElevatorSystem:
         self.rQueue.put(request)
 
     def next_request(self):
-        return self.rQueue.get().request
+        return self.rQueue.get()
 
     def is_empty(self):
         if self.rQueue.empty():
@@ -17,9 +17,3 @@ class ElevatorSystem:
 
     def request_size(self):
         return self.rQueue.qsize()
-
-    def go_up(self):
-        print("up")
-
-    def go_down(self):
-        print("down")
