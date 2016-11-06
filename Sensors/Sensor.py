@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class Sensor (ABC):
     def __init__(self):
         self.limit = 0.0
@@ -10,6 +11,15 @@ class Sensor (ABC):
     @abstractmethod
     def isSafe(self):
         pass
+
+    def setHealth(self, health):
+        self.health = health
+
+    def setMeasure(self, measure):
+        self.cur_measure = measure
+
+    def setTolerance(self, tol):
+        self.tolerance = tol
 
 
 
