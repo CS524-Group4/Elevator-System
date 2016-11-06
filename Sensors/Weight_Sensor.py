@@ -1,7 +1,8 @@
-from Sensors import Sensor
+from Sensors.Sensor import Sensor
 
 
 class WeightSensor(Sensor):
+
     def __init__(self):
         self.limit = 1600.0;
         self.health = 100.0;
