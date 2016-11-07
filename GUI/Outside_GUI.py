@@ -4,7 +4,9 @@ try:
 except ImportError:
     # for Python3
     from tkinter import *
-    
+
+root = Tk()
+
 class Outside_GUI:
   def __init__(self, master):
     frame = Frame(master)
@@ -18,6 +20,8 @@ class Outside_GUI:
                          command=self.move_down)
     self.slogan.pack(side=LEFT)
 
+
+
   def move_up(self):
       ()
       # call move_up function
@@ -26,6 +30,6 @@ class Outside_GUI:
       ()
       # call move_down function
 
-root = Tk()
+
 app = Outside_GUI(root)
 root.mainloop()
