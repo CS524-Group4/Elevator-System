@@ -30,6 +30,26 @@ class Inside_GUI:
                          command=self.go_fifth)
     self.slogan.pack()
 
+    self.slogan = Button(frame,
+                         text="OPEN",
+                         command=self.open_door)
+    self.slogan.pack()
+    self.slogan = Button(frame,
+                         text="CLOSE",
+                         command=self.close_door)
+    self.slogan.pack()
+    self.slogan = Button(frame,
+                         text="Emergency", fg="red", bg="white",
+                         command=self.change_color)
+    self.slogan.pack(side=LEFT)
+
+
+  def change_color(self):
+      current_color = self.slogan.cget("background")
+      next_color = "green" if current_color == "red" else "red"
+      self.slogan.config(background=next_color)
+      root.after(1000, self.change_color)
+
   def go_first(self):
       ()
   def go_second(self):
@@ -39,6 +59,10 @@ class Inside_GUI:
   def go_fourth(self):
       ()
   def go_fifth(self):
+      ()
+  def open_door(self):
+      ()
+  def close_door(self):
       ()
 
 
