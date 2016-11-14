@@ -1,3 +1,5 @@
+from Elevator_System import ElevatorSystem
+
 try:
     # for Python2
     from Tkinter import *   ## notice capitalized T in Tkinter
@@ -7,6 +9,7 @@ except ImportError:
 
 class Inside_GUI:
   def __init__(self, master):
+    self.sys = ElevatorSystem()
     frame = Frame(master)
     frame.pack()
     self.slogan = Button(frame,
@@ -41,8 +44,12 @@ class Inside_GUI:
     self.slogan = Button(frame,
                          text="Emergency", fg="red", bg="white",
                          command=self.change_color)
+    #Test Button
+    self.slogan.pack()
+    self.slogan = Button(frame,
+                         text="Do Request",
+                         command=self.do_request)
     self.slogan.pack(side=LEFT)
-
 
   def change_color(self):
       current_color = self.slogan.cget("background")
@@ -51,19 +58,24 @@ class Inside_GUI:
       root.after(1000, self.change_color)
 
   def go_first(self):
-      ()
+      self.sys.add_request("move", 1, "passenger")
   def go_second(self):
-      ()
+      self.sys.add_request("move", 2, "passenger")
   def go_third(self):
-      ()
+      self.sys.add_request("move", 3, "passenger")
   def go_fourth(self):
-      ()
+      self.sys.add_request("move", 4, "passenger")
   def go_fifth(self):
-      ()
+      self.sys.add_request("move", 5, "passenger")
   def open_door(self):
-      ()
+      self.sys.open_door()
   def close_door(self):
-      ()
+      self.sys.close_door()
+  def do_request(self):
+      self.sys.do_request()
+
+  def set_system(self, system):
+      self.sys = system
 
 
 
