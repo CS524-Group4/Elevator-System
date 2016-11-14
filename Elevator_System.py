@@ -29,9 +29,12 @@ class ElevatorSystem:
         return self.rQueue.qsize()
 
     def do_request(self):
-        cur_request = self.next_request()
-        if cur_request.request == "move":
-            self.move_elevator(cur_request.floor)
+        if not self.is_empty():
+            cur_request = self.next_request()
+            if cur_request.request == "move":
+                self.move_elevator(cur_request.floor)
+        else:
+            print("Waiting for request")
 
     def move_elevator(self, floor):
         if self.is_safe():
