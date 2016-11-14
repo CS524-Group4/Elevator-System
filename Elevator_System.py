@@ -1,8 +1,11 @@
 from queue import PriorityQueue
+from Controller import Car
+
 
 class ElevatorSystem:
     def __init__(self):
         self.rQueue = PriorityQueue()
+        self.car = Car()
 
     def add_request(self, request):
         self.rQueue.put(request)
@@ -17,3 +20,18 @@ class ElevatorSystem:
 
     def request_size(self):
         return self.rQueue.qsize()
+
+    def do_request(self):
+        cur_request = self.next_request()
+        if cur_request.request == "move":
+            self.move_elevator(cur_request.floor)
+
+    def move_elevator(self, floor):
+        if(self.is_safe()):
+            self.car.door_close()
+            self.car.move_car(floor)
+            #add check position sensor
+            self.car.door_open()
+
+    def is_safe(self):
+        return True
