@@ -1,12 +1,14 @@
 from queue import PriorityQueue
 from Controller import Car
 from Request import Request
+from Sensors.SensorController import SensorController
 
 
 class ElevatorSystem:
     def __init__(self):
         self.rQueue = PriorityQueue()
         self.car = Car()
+        self.sensors = SensorController
 
     def add_request(self, request, floor, user):
         if user == "passenger":
@@ -52,4 +54,4 @@ class ElevatorSystem:
         self.car.door_close()
 
     def is_safe(self):
-        return True
+        safe = self.sensors.check_all_sensors()

@@ -12,13 +12,13 @@ class Sensor (ABC):
     def isSafe(self):
         pass
 
-    def setHealth(self, health):
+    def set_health(self, health):
         self.health = health
 
-    def setMeasure(self, measure):
+    def set_measure(self, measure):
         self.cur_measure = measure
 
-    def setTolerance(self, tol):
+    def set_tolerance(self, tol):
         self.tolerance = tol
 
 
