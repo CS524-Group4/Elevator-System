@@ -53,6 +53,9 @@ class ElevatorSystem:
         self.check_sensor(self, "door")
         self.car.door_close()
 
+    def get_sensor_controller(self):
+        return self.sensors
+
     def is_safe(self):
         safe = self.sensors.check_all_sensors()
 

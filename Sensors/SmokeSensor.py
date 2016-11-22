@@ -1,14 +1,12 @@
 from Sensors.Sensor import Sensor
 
 
-class DoorSensor(Sensor):
+class SmokeSensor(Sensor):
     def _init_(self):
         self.cur_measure = False
 
     def is_safe(self):
-        if self.cur_measure:
-            return False
-        else:
+        if not self.cur_measure:
             return True
-
-
+        else:
+            return False

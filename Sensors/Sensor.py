@@ -9,7 +9,7 @@ class Sensor (ABC):
         self.cur_measure = 0.0
 
     @abstractmethod
-    def isSafe(self):
+    def is_safe(self):
         pass
 
     def set_health(self, health):
