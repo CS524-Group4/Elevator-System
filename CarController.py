@@ -1,6 +1,7 @@
 from time import sleep
-class Car:
 
+
+class CarController:
 
     def __init__(self):
         self.current_floor = 1

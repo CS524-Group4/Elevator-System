@@ -1,5 +1,5 @@
 from queue import PriorityQueue
-from Controller import Car
+from CarController import CarController
 from Request import Request
 from Sensors.SensorController import SensorController
 
@@ -7,7 +7,7 @@ from Sensors.SensorController import SensorController
 class ElevatorSystem:
     def __init__(self):
         self.rQueue = PriorityQueue()
-        self.car = Car()
+        self.car = CarController()
         self.sensors = SensorController
 
     def add_request(self, request, floor, user):
