@@ -3,10 +3,12 @@ from Sensors.Sensor import Sensor
 
 class PositionSensor(Sensor):
     def _init_(self):
-        self.Difference_In_Position = 0.5; # the differeance between the elevator Surface and the floor surface mesurment in 0.5 centimeter
+        Sensor.__init__(self)
+        self.limit = 0.5
+        self.tolerance = 1
 
     def is_safe(self):
-        if self.Difference_In_Position <= 0.5:
+        if self.cur_measure <= self.limit + self.tolerance:
             return True
         else:
             return False

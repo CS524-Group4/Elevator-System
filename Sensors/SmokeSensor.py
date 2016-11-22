@@ -3,10 +3,11 @@ from Sensors.Sensor import Sensor
 
 class SmokeSensor(Sensor):
     def _init_(self):
+        Sensor.__init__(self)
         self.cur_measure = False
 
     def is_safe(self):
-        if not self.cur_measure:
-            return True
-        else:
+        if self.cur_measure:
             return False
+        else:
+            return True
