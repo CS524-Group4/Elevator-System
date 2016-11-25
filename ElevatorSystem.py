@@ -45,11 +45,13 @@ class ElevatorSystem:
         else:
             print("Waiting for request")
 
+   #make a function to grab current floor
+   #request floor every 5 seconds
     def move_elevator(self, floor):
         sleep(self.door_time)
         if self.is_safe():
             self.close_door()
-            self.car.move_car(floor)
+            self.car.move(floor)
             if self.check_sensor("position"):
                 self.open_door()
             else:
