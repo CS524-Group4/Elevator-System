@@ -70,6 +70,9 @@ class ElevatorSystem:
     def get_sensor_controller(self):
         return self.sensors
 
+    def get_car(self):
+        return self.car
+
     def is_safe(self):
         return self.sensors.check_all_sensors()
 
