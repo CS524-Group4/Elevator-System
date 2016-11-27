@@ -6,7 +6,7 @@ from Sensors.SensorController import SensorController
 
 class ElevatorSystem:
     def __init__(self):
-        self.rQueue = PriorityQueue()
+        self.r_queue = PriorityQueue()
         self.car = CarController()
         self.sensors = SensorController()
         self.door_time = 3
@@ -21,41 +21,41 @@ class ElevatorSystem:
             new_request = Request(1, request, floor, user)
         elif user == "firefighter":
             new_request = Request(0, request, floor, user)
-        self.rQueue.put(new_request)
+        self.r_queue.put(new_request)
 
     #gets next request from queue
     def __next_request(self):
-        return self.rQueue.get()
+        return self.r_queue.get()
 
     #checks if queue is empty
     def is_empty(self):
-        if self.rQueue.empty():
+        if self.r_queue.empty():
             return True
         return False
 
     #gets size of queue
     def request_size(self):
-        return self.rQueue.qsize()
+        return self.r_queue.qsize()
 
-    #Need to add something here if the elevator is not safe
-    #Does current request of queue
     def run(self):
         print("Call: " + str(self.in_call))
-        self.check_movement()
+        self.check_arrival()
         if not self.is_empty() and not self.in_call:
             self.in_call = True
             cur_request = self.__next_request()
             if cur_request.request == "move":
-                self.move_elevator(cur_request.floor)
+                self.move_elevator(cur_request.floor, cur_request.user)
         else:
             print("Waiting for request")
 
     #Does moving of car
-    def move_elevator(self, floor):
+    def move_elevator(self, floor, user):
         print("Requested floor: " + str(floor))
         if self.is_safe():
             self.emergency = False
             self.close_door()
+            self.car.move(floor)
+        elif user == "firefighter" or user == "operator":
             self.car.move(floor)
         else:
             self.emergency = True
@@ -90,7 +90,7 @@ class ElevatorSystem:
     def get_emergency(self):
         return self.emergency
 
-    def check_movement(self):
+    def check_arrival(self):
         if not self.car.get_move() and self.is_safe():
             if self.check_sensor("position"):
                 self.open_door()
@@ -98,9 +98,19 @@ class ElevatorSystem:
                 print("Not safe to open door")
             self.in_call = False
 
-    #Checks a specefic sensor
-    def check_sensor(self, sensor):
-        measure_sensor = sensor
+    #Need to figure out how to move to nearest floor during emergencies
+    def move_near_floor(self):
+        self.r_queue.queue.clear()
+        self.in_call = False
+        self.add_request("move", self.get_floor(), "firefighter")
+
+    def safe_movement(self):
+        if not self.check_sensor("speed") or not self.check_sensor("smoke"):
+            self.car.stop()
+            self.move_near_floor()
+
+    #Checks a specfic sensor
+    def check_sensor(self, measure_sensor):
         if measure_sensor == "position":
             safe = self.sensors.get_pos().is_safe()
         elif measure_sensor == "door":

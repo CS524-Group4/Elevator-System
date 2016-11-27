@@ -1,5 +1,6 @@
 import pygame
 import os
+import random
 from time import sleep
 from ElevatorSystem import ElevatorSystem
 
@@ -53,13 +54,10 @@ def check_emergency():
         game_display.blit(label, (100, 100))
 
 
-
 #test variables
 sys.add_request("move", 5, "firefighter")
 sys.add_request("move", 3, "passenger")
 sys.add_request("move", 2, "firefighter")
-speed = sys.get_sensor_controller().get_speed()
-sys.get_sensor_controller().set_sensor_measure(speed, 90)
 
 #Main simulation loop
 while not crashed:
@@ -70,6 +68,10 @@ while not crashed:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 crashed = True
+            if event.key == pygame.K_DOWN:
+                speed = sys.get_sensor_controller().get_speed()
+                sys.get_sensor_controller().set_sensor_measure(speed, 90)
+
 
     move = car.get_move()
     print("Move: " + str(move))
@@ -81,6 +83,7 @@ while not crashed:
 
     #move function
     if move:
+        sys.safe_movement()
         if dir == "up":
             elev_y -= y_change
         elif dir == "down":
@@ -89,13 +92,15 @@ while not crashed:
         current_pos += y_change
 
         if current_pos%dis_per_floor == 0:
+            print("Floor: ")
             if dir == "up":
                 current_floor = car.get_floor() + 1
+                print("Current Floor: " + str(current_floor))
                 car.set_floor(current_floor)
             else:
                 current_floor = car.get_floor() - 1
                 car.set_floor(current_floor)
-        print("Destination Pos: " + str(dest_pos))
+
         if current_pos >= dest_pos:
             current_pos = 0
             car.stop()
