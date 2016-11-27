@@ -30,7 +30,7 @@ display_color = white
 back_x = (display_width * 0.20)
 back_y = (display_height*0.0005)
 elev_y = (display_height * 0.780)
-elev_x = (display_width * 0.335)
+elev_x = (display_width * 0.320)
 
 #speed of car
 y_change = 3
@@ -57,8 +57,8 @@ def check_emergency():
 sys.add_request("move", 5, "firefighter")
 sys.add_request("move", 3, "passenger")
 sys.add_request("move", 2, "firefighter")
-#speed = sys.get_sensor_controller().get_speed()
-#sys.get_sensor_controller().set_sensor_measure(speed, 90)
+speed = sys.get_sensor_controller().get_speed()
+sys.get_sensor_controller().set_sensor_measure(speed, 90)
 
 #Main simulation loop
 while not crashed:
@@ -104,6 +104,7 @@ while not crashed:
 
     game_object(back_x, back_y, fore_img)
     game_object(elev_x, elev_y, elev_img)
+    print("Emergency: " + str(sys.get_emergency()))
     check_emergency()
 
 

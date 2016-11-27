@@ -91,7 +91,7 @@ class ElevatorSystem:
         return self.emergency
 
     def check_movement(self):
-        if not self.car.get_move() or self.is_safe():
+        if not self.car.get_move() and self.is_safe():
             if self.check_sensor("position"):
                 self.open_door()
             else:
