@@ -7,6 +7,7 @@ class CarController:
         self.is_open = False
         self.is_moving = False
         self.dir = "up"
+        self.rdiff = 0
 
     #Allows car to move and returns difference of floor for car simulation in pygame
     def move(self, floor):
@@ -14,17 +15,17 @@ class CarController:
         print("difference: " + str(diff))
         if diff == 0:
             self.stop()
-            return 0
+            self.rdiff = 0
         elif diff < 0:
             print("Going down")
             self.is_moving = True
             self.dir = "down"
-            return diff
+            self.rdiff = diff
         else:
             print("Going up")
             self.is_moving = True
             self.dir = "up"
-            return diff
+            self.rdiff = diff
 
     #Tells when floor is reach
     def floor_reached(self):
@@ -63,4 +64,7 @@ class CarController:
     #Set direction of elevator
     def set_dir(self, dir):
         self.dir = dir
+
+    def get_diff(self):
+        return self.rdiff
 

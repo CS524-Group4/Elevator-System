@@ -1,5 +1,6 @@
 import pygame
 import os
+from time import sleep
 from ElevatorSystem import ElevatorSystem
 
 
@@ -9,28 +10,27 @@ pygame.init()
 display_width = 600
 display_height = 850
 
-gameDisplay = pygame.display.set_mode((display_width, display_height))
+game_display = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption('Elevator')
 
 black = (0, 0, 0)
 white = (255, 255, 255)
+red = (255, 0, 0)
 
 sys = ElevatorSystem()
 car = sys.get_car()
 clock = pygame.time.Clock()
 crashed = False
-elev_img = pygame.image.load(os.path.abspath("Resources/elevator.png"))
-back_img = pygame.image.load(os.path.abspath("Resources/level 2 elevator.png"))
-
-#create images in simulation space
-def game_object(x, y, img):
-    gameDisplay.blit(img, (x, y))
+elev_img = pygame.image.load(os.path.abspath("Resources/level 3 elevator.png"))
+fore_img = pygame.image.load(os.path.abspath("Resources/all elevator 5 floors.png"))
+emergency_text = pygame.font.SysFont("monospace", 80)
+display_color = white
 
 #positions of image relative to window
 back_x = (display_width * 0.20)
 back_y = (display_height*0.0005)
-elev_y = (display_height * 0.811)
-elev_x = (display_width * 0.325)
+elev_y = (display_height * 0.780)
+elev_x = (display_width * 0.335)
 
 #speed of car
 y_change = 3
@@ -41,10 +41,24 @@ current_pos = 0
 #distance between floor
 dis_per_floor = 153
 
+#create images in simulation space
+def game_object(x, y, img):
+    game_display.blit(img, (x, y))
+
+def check_emergency():
+    emergency = sys.get_emergency()
+    if emergency:
+        label = emergency_text.render("Emergency!", 1, red)
+        game_display.blit(label, (100, 100))
+
+
+
 #test variables
-sys.add_request("move", 5, "passenger")
+sys.add_request("move", 5, "firefighter")
 sys.add_request("move", 3, "passenger")
-sys.add_request("move", 2, "passenger")
+sys.add_request("move", 2, "firefighter")
+#speed = sys.get_sensor_controller().get_speed()
+#sys.get_sensor_controller().set_sensor_measure(speed, 90)
 
 #Main simulation loop
 while not crashed:
@@ -56,17 +70,13 @@ while not crashed:
             if event.key == pygame.K_ESCAPE:
                 crashed = True
 
-            # if event.key == pygame.K_UP:
-            #     dest_pos = abs(car.move(5) * dis_per_floor)
-            #
-            # if event.key == pygame.K_DOWN:
-            #     dest_pos = abs(car.move(3) * dis_per_floor)
-
     move = car.get_move()
     print("Move: " + str(move))
     dir = car.get_dir()
+    diff = car.get_diff()
+    dest_pos = abs(diff * dis_per_floor)
 
-    gameDisplay.fill(white)
+    game_display.fill(white)
 
     if move:
         if dir == "up":
@@ -83,15 +93,18 @@ while not crashed:
             else:
                 current_floor = car.get_floor() - 1
                 car.set_floor(current_floor)
-
+        print("Destination Pos: " + str(dest_pos))
         if current_pos >= dest_pos:
             current_pos = 0
             car.stop()
-    else:
-        sys.do_request()
+            sleep(5)
 
-    game_object(back_x, back_y, back_img)
+    else:
+        sys.run()
+
+    game_object(back_x, back_y, fore_img)
     game_object(elev_x, elev_y, elev_img)
+    check_emergency()
 
 
     pygame.display.update()

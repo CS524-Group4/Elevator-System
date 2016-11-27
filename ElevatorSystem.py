@@ -2,7 +2,6 @@ from queue import PriorityQueue
 from CarController import CarController
 from Request import Request
 from Sensors.SensorController import SensorController
-from time import sleep
 
 
 class ElevatorSystem:
@@ -11,10 +10,8 @@ class ElevatorSystem:
         self.car = CarController()
         self.sensors = SensorController()
         self.door_time = 3
-
-    def on(self):
-        while not self.is_empty():
-            self.do_request()
+        self.in_call = False
+        self.emergency = False
 
     #creates and add requests to queue
     def add_request(self, request, floor, user):
@@ -42,8 +39,11 @@ class ElevatorSystem:
 
     #Need to add something here if the elevator is not safe
     #Does current request of queue
-    def do_request(self):
-        if not self.is_empty():
+    def run(self):
+        print("Call: " + str(self.in_call))
+        self.check_movement()
+        if not self.is_empty() and not self.in_call:
+            self.in_call = True
             cur_request = self.__next_request()
             if cur_request.request == "move":
                 self.move_elevator(cur_request.floor)
@@ -52,17 +52,14 @@ class ElevatorSystem:
 
     #Does moving of car
     def move_elevator(self, floor):
-        #sleep(self.door_time)
         print("Requested floor: " + str(floor))
         if self.is_safe():
+            self.emergency = False
             self.close_door()
             self.car.move(floor)
-        #     if self.check_sensor("position"):
-        #         self.open_door()
-        #     else:
-        #         print("Not safe to open door")
-        # else:
-        #     print("Not safe to move")
+        else:
+            self.emergency = True
+            print("Not safe to move")
 
     #Open elevator door
     def open_door(self):
@@ -90,6 +87,17 @@ class ElevatorSystem:
     def get_floor(self):
         return self.car.get_floor()
 
+    def get_emergency(self):
+        return self.emergency
+
+    def check_movement(self):
+        if not self.car.get_move() or self.is_safe():
+            if self.check_sensor("position"):
+                self.open_door()
+            else:
+                print("Not safe to open door")
+            self.in_call = False
+
     #Checks a specefic sensor
     def check_sensor(self, sensor):
         measure_sensor = sensor
@@ -105,8 +113,10 @@ class ElevatorSystem:
             safe = self.sensors.get_speed().is_safe()
 
         if safe:
+            self.emergency = False
             return True
         else:
+            self.emergency = True
             return False
 
 
