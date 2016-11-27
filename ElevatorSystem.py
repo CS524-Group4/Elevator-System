@@ -48,6 +48,10 @@ class ElevatorSystem:
         else:
             print("Waiting for request")
 
+    def reset(self):
+        self.emergency = False
+        self.sensors.reset_all_sensors()
+        
     #Does moving of car
     def move_elevator(self, floor, user):
         print("Requested floor: " + str(floor))
