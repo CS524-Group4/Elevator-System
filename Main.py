@@ -24,7 +24,7 @@ crashed = False
 elev_img = pygame.image.load(os.path.abspath("Resources/level 3 elevator.png"))
 fore_img = pygame.image.load(os.path.abspath("Resources/all elevator 5 floors.png"))
 emergency_text = pygame.font.SysFont("monospace", 80)
-display_color = white
+waiting_time = 5
 
 #positions of image relative to window
 back_x = (display_width * 0.20)
@@ -45,6 +45,7 @@ dis_per_floor = 153
 def game_object(x, y, img):
     game_display.blit(img, (x, y))
 
+#Displays emergency text if there is an emergency
 def check_emergency():
     emergency = sys.get_emergency()
     if emergency:
@@ -78,6 +79,7 @@ while not crashed:
 
     game_display.fill(white)
 
+    #move function
     if move:
         if dir == "up":
             elev_y -= y_change
@@ -97,7 +99,9 @@ while not crashed:
         if current_pos >= dest_pos:
             current_pos = 0
             car.stop()
-            sleep(5)
+            pygame.mixer.music.load("Resources/elevator-ding.ogg")
+            pygame.mixer.music.play()
+            sleep(waiting_time)
 
     else:
         sys.run()
