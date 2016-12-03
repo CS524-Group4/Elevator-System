@@ -15,10 +15,11 @@ class ElevatorSystem:
 
     #creates and add requests to queue
     def add_request(self, request, floor, user):
+        print("Added request")
         if user == "passenger":
             new_request = Request(2, request, floor, user)
         elif user == "operator":
-            new_request = Request(1, request, floor, user)
+            new_request = Request(0, request, floor, user)
         elif user == "firefighter":
             new_request = Request(0, request, floor, user)
         self.r_queue.put(new_request)
@@ -51,7 +52,7 @@ class ElevatorSystem:
     def reset(self):
         self.emergency = False
         self.sensors.reset_all_sensors()
-        
+
     #Does moving of car
     def move_elevator(self, floor, user):
         print("Requested floor: " + str(floor))

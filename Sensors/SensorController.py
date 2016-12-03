@@ -15,12 +15,16 @@ class SensorController ():
         self.sensors = [self.door_sensor, self.pos_sensor, self.weight_sensor, self.speed_sensor, self.smoke_sensor]
 
     def check_all_sensors(self):
-        for x in self.sensors:
-            safe = x.is_safe()
-            print(safe)
-            if not safe:
-                return False;
-        return True
+        try:
+            for x in self.sensors:
+                safe = x.is_safe()
+                print(safe)
+                if not safe:
+                    return False
+                return True
+        except TypeError:
+            return False
+        e
 
     def reset_all_sensors(self):
         for x in self.sensors:

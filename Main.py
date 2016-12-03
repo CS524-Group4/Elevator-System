@@ -1,6 +1,5 @@
 import pygame
 import os
-import random
 from time import sleep
 from ElevatorSystem import ElevatorSystem
 
