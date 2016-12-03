@@ -8,17 +8,21 @@ class Sensor (ABC):
         self.tolerance = 0.0
         self.cur_measure = 0.0
 
+    #Checks the limit to find if its safe
     @abstractmethod
-    def isSafe(self):
+    def is_safe(self):
         pass
 
-    def setHealth(self, health):
+    #Sets health of sensor
+    def set_health(self, health):
         self.health = health
 
-    def setMeasure(self, measure):
+    #Sets current measure
+    def set_measure(self, measure):
         self.cur_measure = measure
 
-    def setTolerance(self, tol):
+    #Set tolerance of Sensor
+    def set_tolerance(self, tol):
         self.tolerance = tol
 
 
