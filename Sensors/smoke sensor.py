@@ -5,9 +5,9 @@ class Smoke_sensor(Sensor):
         self.smoke = True;
 
     def isSafe(self):
-        if self.smoke == True:
-            return True
-        else:
+        if self.smoke == False:
             return False
+        else:
+            return True
 
 
