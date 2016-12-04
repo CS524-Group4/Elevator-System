@@ -15,7 +15,6 @@ class ElevatorSystem:
 
     #creates and add requests to queue
     def add_request(self, request, floor, user):
-        print("Added request")
         if user == "passenger":
             new_request = Request(2, request, floor, user)
         elif user == "operator":
@@ -39,7 +38,6 @@ class ElevatorSystem:
         return self.r_queue.qsize()
 
     def run(self):
-        print("Call: " + str(self.in_call))
         self.check_arrival()
         if not self.is_empty() and not self.in_call:
             self.in_call = True
@@ -55,8 +53,8 @@ class ElevatorSystem:
 
     #Does moving of car
     def move_elevator(self, floor, user):
-        print("Requested floor: " + str(floor))
         if self.is_safe():
+            print("Is safe: " + str(self.is_safe()))
             self.emergency = False
             self.close_door()
             self.car.move(floor)

@@ -904,13 +904,14 @@ GUI = Ui_ProgramForm()
 pygame.init()
 
 def sim_loop():
+    #Add GUI
     import sys
     app = QtWidgets.QApplication(sys.argv)
     ProgramForm = QtWidgets.QWidget()
     ui = GUI
     ui.setupUi(ProgramForm)
     ProgramForm.show()
-    #sys.exit(app.exec())
+
 
     crashed = False
     clock = pygame.time.Clock()
@@ -932,6 +933,10 @@ def sim_loop():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 crashed = True
+            if event.type == pygame.KEYDOWN:
+                if event.type == pygame.K_ESCAPE:
+                    crashed = True
+
 
         move = car.get_move()
         print("Move: " + str(move))
@@ -975,6 +980,7 @@ def sim_loop():
                 elif dir == "down":
                     car.set_floor(car.get_floor() - 1)
         else:
+            #Waits for the waiting time to run another request
             if now - last >= waiting_time:
                 sys.run()
             else:
@@ -982,8 +988,6 @@ def sim_loop():
 
 
         clock.tick(60)
-    pygame.quit()
-
 sim_loop()
 
 # if __name__ == "__main__":
