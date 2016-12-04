@@ -13,10 +13,7 @@ class CarController:
     def move(self, floor):
         print("Floor: " + str(floor))
         diff = floor - self.current_floor
-        print("Difference" + str(diff))
-        if diff == 0:
-            self.stop()
-        elif diff < 0:
+        if diff < 0:
             self.is_moving = True
             self.dir = "down"
             self.req_floor = floor

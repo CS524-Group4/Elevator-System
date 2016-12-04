@@ -16,11 +16,12 @@ class SensorController ():
 
     def check_all_sensors(self):
         try:
-            for x in self.sensor:
+            for x in self.sensors:
                 safe = x.is_safe()
                 if not safe:
                     return False
-                return True
+
+            return True
 
         except TypeError:
             return False

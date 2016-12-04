@@ -768,7 +768,9 @@ class Ui_ProgramForm(object):
         self.Button_Down_Floor_2.clicked.connect(lambda: self.floor_call(2))
         self.Button_Down_Floor_3.clicked.connect(lambda: self.floor_call(3))
         self.Button_Down_Floor_4.clicked.connect(lambda: self.floor_call(4))
-        self.Button_Down_Floor_5.clicked.connect(lambda: self.floor_call(5))
+        #self.Button_Down_Floor_5.clicked.connect(lambda: self.floor_call(5))
+        #test method for emergency
+        self.Button_Down_Floor_5.clicked.connect(lambda: self.test_emergency())
 
 
 
@@ -830,9 +832,13 @@ class Ui_ProgramForm(object):
     def get_sys(self):
         return self.system
 
+    def test_emergency(self):
+        speed = self.system.get_sensor_controller().get_speed()
+        self.system.get_sensor_controller().set_sensor_measure(speed, 90)
+
     def retranslateUi(self, ProgramForm):
         _translate = QtCore.QCoreApplication.translate
-        ProgramForm.setWindowTitle(_translate("ProgramForm", "Group 4 Elevatro project"))
+        ProgramForm.setWindowTitle(_translate("ProgramForm", "Group 4 Elevator project"))
         self.label_24.setText(_translate("ProgramForm", "Group 4 Elevator Project"))
         self.label_25.setText(_translate("ProgramForm", "Outside the Elevator "))
         self.Button_Down_Floor_5.setText(_translate("ProgramForm", "down"))
@@ -915,7 +921,7 @@ def sim_loop():
 
     crashed = False
     clock = pygame.time.Clock()
-    sys = GUI.get_sys()
+    e_sys = GUI.get_sys()
     car = GUI.get_sys().get_car()
     dis_per_floor = 136
     y_change = -1
@@ -924,7 +930,7 @@ def sim_loop():
     third_floor = -341
     fourth_floor = -477
     fifth_floor = -613
-    sys.add_request("move", 3, "passenger")
+    e_sys.add_request("move", 3, "passenger")
     now = 0
     last = time.time()
     waiting_time = 6
@@ -937,7 +943,7 @@ def sim_loop():
                 if event.type == pygame.K_ESCAPE:
                     crashed = True
 
-
+        e_sys.is_safe()
         move = car.get_move()
         print("Move: " + str(move))
         dir = car.get_dir()
@@ -955,7 +961,6 @@ def sim_loop():
 
         # move function
         if move:
-            sys.safe_movement()
             if dir == "up":
                 GUI.move(y_change)
                 elevator_pos = GUI.Inside_Elvetor_Car.y()
@@ -982,22 +987,12 @@ def sim_loop():
         else:
             #Waits for the waiting time to run another request
             if now - last >= waiting_time:
-                sys.run()
+                e_sys.run()
             else:
                 now = time.time()
 
-
         clock.tick(60)
+
 sim_loop()
 
-# if __name__ == "__main__":
-#     import sys
-#     app = QtWidgets.QApplication(sys.argv)
-#     ProgramForm = QtWidgets.QWidget()
-#     ui = GUI
-#     ui.setupUi(ProgramForm)
-#     ProgramForm.show()
-#     pygame.init()
-#     sim_loop()
-#     sys.exit(app.exec_())
 
