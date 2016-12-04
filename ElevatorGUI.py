@@ -6,9 +6,11 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
-from ElevatorSystem import ElevatorSystem
+import pygame
 import os
+from PyQt5 import QtCore, QtGui, QtWidgets, QtMultimedia
+from ElevatorSystem import ElevatorSystem
+
 class Ui_ProgramForm(object):
     def setupUi(self, ProgramForm):
         self.user = "passenger"
@@ -24,7 +26,7 @@ class Ui_ProgramForm(object):
         ProgramForm.setMaximumSize(QtCore.QSize(1200, 900))
         ProgramForm.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../png/down.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("Resources/down.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         ProgramForm.setWindowIcon(icon)
         self.gridLayout = QtWidgets.QGridLayout(ProgramForm)
         self.gridLayout.setObjectName("gridLayout")
@@ -56,7 +58,7 @@ class Ui_ProgramForm(object):
         self.Button_Down_Floor_5.setMinimumSize(QtCore.QSize(0, 42))
         self.Button_Down_Floor_5.setStyleSheet("background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(170, 148, 141, 255), stop:1 rgba(255, 255, 255, 255));")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("../Resources/down.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("Resources/down.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         ####
         self.Button_Down_Floor_5.setIcon(icon1)
         self.Button_Down_Floor_5.setAutoRepeat(False)
@@ -124,7 +126,7 @@ class Ui_ProgramForm(object):
         self.Button_Up_Floor_3.setMinimumSize(QtCore.QSize(0, 42))
         self.Button_Up_Floor_3.setStyleSheet("background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(170, 148, 141, 255), stop:1 rgba(255, 255, 255, 255));")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("../Resources/up.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap("Resources/up.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Button_Up_Floor_3.setIcon(icon2)
         self.Button_Up_Floor_3.setObjectName("Button_Up_Floor_3")
         self.gridLayout_15.addWidget(self.Button_Up_Floor_3, 0, 3, 1, 1)
@@ -410,7 +412,7 @@ class Ui_ProgramForm(object):
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.label_23 = QtWidgets.QLabel(ProgramForm)
         self.label_23.setText("")
-        self.label_23.setPixmap(QtGui.QPixmap("../Resources/bell-7.png"))
+        self.label_23.setPixmap(QtGui.QPixmap("Resources/bell-7.png"))
         self.label_23.setObjectName("label_23")
         self.horizontalLayout_2.addWidget(self.label_23)
         self.lineEdit_6 = QtWidgets.QLineEdit(ProgramForm)
@@ -445,7 +447,7 @@ class Ui_ProgramForm(object):
         self.Button_Close_Door_Inside.setFont(font)
         self.Button_Close_Door_Inside.setStyleSheet("background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(170, 148, 141, 255), stop:1 rgba(255, 255, 255, 255));")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("../Resources/Close.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap("Resources/Close.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Button_Close_Door_Inside.setIcon(icon3)
         self.Button_Close_Door_Inside.setIconSize(QtCore.QSize(40, 40))
         self.Button_Close_Door_Inside.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
@@ -459,7 +461,7 @@ class Ui_ProgramForm(object):
         self.Button_Stop_Inside.setFont(font)
         self.Button_Stop_Inside.setStyleSheet("background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(170, 148, 141, 255), stop:1 rgba(255, 255, 255, 255));")
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("../Resources/Icons-Land-Play-Stop-Pause-Stop-Normal-Red.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon4.addPixmap(QtGui.QPixmap("Resources/Icons-Land-Play-Stop-Pause-Stop-Normal-Red.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Button_Stop_Inside.setIcon(icon4)
         self.Button_Stop_Inside.setIconSize(QtCore.QSize(40, 40))
         self.Button_Stop_Inside.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
@@ -484,7 +486,7 @@ class Ui_ProgramForm(object):
         self.Button_Sys_Onoff_Inside.setFont(font)
         self.Button_Sys_Onoff_Inside.setStyleSheet("background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(170, 40, 0, 255), stop:1 rgba(255, 106, 106, 255))")
         icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap("../Resources/power-off-icon-hi.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon5.addPixmap(QtGui.QPixmap("Resources/power-off-icon-hi.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Button_Sys_Onoff_Inside.setIcon(icon5)
         self.Button_Sys_Onoff_Inside.setIconSize(QtCore.QSize(40, 40))
         self.Button_Sys_Onoff_Inside.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
@@ -498,7 +500,7 @@ class Ui_ProgramForm(object):
         self.Button_Key_Inside.setFont(font)
         self.Button_Key_Inside.setStyleSheet("background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(170, 137, 0, 255), stop:1 rgba(255, 251, 106, 255));")
         icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap("../Resources/man key.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon6.addPixmap(QtGui.QPixmap("Resources/man key.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Button_Key_Inside.setIcon(icon6)
         self.Button_Key_Inside.setIconSize(QtCore.QSize(40, 40))
         self.Button_Key_Inside.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
@@ -553,7 +555,7 @@ class Ui_ProgramForm(object):
         self.Button_Emergency_Inside.setFont(font)
         self.Button_Emergency_Inside.setStyleSheet("background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(170, 148, 141, 255), stop:1 rgba(255, 255, 255, 255));")
         icon7 = QtGui.QIcon()
-        icon7.addPixmap(QtGui.QPixmap("../Resources/ISO_7010_F006_2-512.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon7.addPixmap(QtGui.QPixmap("Resources/ISO_7010_F006_2-512.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Button_Emergency_Inside.setIcon(icon7)
         self.Button_Emergency_Inside.setIconSize(QtCore.QSize(40, 40))
         self.Button_Emergency_Inside.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
@@ -567,7 +569,7 @@ class Ui_ProgramForm(object):
         self.Button_Open_Door_Inside.setFont(font)
         self.Button_Open_Door_Inside.setStyleSheet("background-color: qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(170, 148, 141, 255), stop:1 rgba(255, 255, 255, 255));")
         icon8 = QtGui.QIcon()
-        icon8.addPixmap(QtGui.QPixmap("../Resources/Open.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon8.addPixmap(QtGui.QPixmap("Resources/Open.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Button_Open_Door_Inside.setIcon(icon8)
         self.Button_Open_Door_Inside.setIconSize(QtCore.QSize(40, 40))
         self.Button_Open_Door_Inside.setToolButtonStyle(QtCore.Qt.ToolButtonTextUnderIcon)
@@ -631,12 +633,12 @@ class Ui_ProgramForm(object):
         self.label_6 = QtWidgets.QLabel(self.groupBox_4)
         self.label_6.setGeometry(QtCore.QRect(60, 10, 81, 111))
         self.label_6.setText("")
-        self.label_6.setPixmap(QtGui.QPixmap("../Resources/on1 (2).png"))
+        self.label_6.setPixmap(QtGui.QPixmap("Resources/on1 (2).png"))
         self.label_6.setObjectName("label_6")
         self.label_16 = QtWidgets.QLabel(self.groupBox_4)
         self.label_16.setGeometry(QtCore.QRect(60, 20, 71, 101))
         self.label_16.setText("")
-        self.label_16.setPixmap(QtGui.QPixmap("../Resources/off2.png"))
+        self.label_16.setPixmap(QtGui.QPixmap("Resources/off2.png"))
         self.label_16.setObjectName("label_16")
         self.label_16.raise_()
         self.label_6.raise_()
@@ -663,17 +665,17 @@ class Ui_ProgramForm(object):
         self.label_9 = QtWidgets.QLabel(self.frame)
         self.label_9.setGeometry(QtCore.QRect(30, 0, 361, 781))
         self.label_9.setText("")
-        self.label_9.setPixmap(QtGui.QPixmap("../Resources/all elevator 5 floors v_2 L2.png"))
+        self.label_9.setPixmap(QtGui.QPixmap("Resources/all elevator 5 floors v_2 L2.png"))
         self.label_9.setObjectName("label_9")
         self.label_10 = QtWidgets.QLabel(self.frame)
         self.label_10.setGeometry(QtCore.QRect(30, 10, 431, 751))
         self.label_10.setText("")
-        self.label_10.setPixmap(QtGui.QPixmap("../Resources/all elevator 5 floors v_2 L4.png"))
+        self.label_10.setPixmap(QtGui.QPixmap("Resources/all elevator 5 floors v_2 L4.png"))
         self.label_10.setObjectName("label_10")
         self.Inside_Elvetor_Car = QtWidgets.QLabel(self.frame)
         self.Inside_Elvetor_Car.setGeometry(QtCore.QRect(30, -69, 481, 871))
         self.Inside_Elvetor_Car.setText("")
-        self.Inside_Elvetor_Car.setPixmap(QtGui.QPixmap("../Resources/all elevator 5 floors v_2 L3.png"))
+        self.Inside_Elvetor_Car.setPixmap(QtGui.QPixmap("Resources/all elevator 5 floors v_2 L3.png"))
         self.Inside_Elvetor_Car.setObjectName("Inside_Elvetor_Car")
         self.groupBox = QtWidgets.QGroupBox(self.frame)
         self.groupBox.setGeometry(QtCore.QRect(360, 40, 121, 681))
@@ -767,12 +769,6 @@ class Ui_ProgramForm(object):
         self.Button_Down_Floor_4.clicked.connect(lambda: self.floor_call(4))
         self.Button_Down_Floor_5.clicked.connect(lambda: self.floor_call(5))
 
-        self.Button_1_Inside.clicked.connect(lambda: self.floor_call(1))
-        self.Button_2_Inside.clicked.connect(lambda: self.floor_call(2))
-        self.Button_3_Inside.clicked.connect(lambda: self.floor_call(3))
-        self.Button_4_Inside.clicked.connect(lambda: self.floor_call(4))
-        self.Button_5_Inside.clicked.connect(lambda: self.floor_call(5))
-
 
 
 
@@ -817,6 +813,11 @@ class Ui_ProgramForm(object):
     def floor_call (self, floor):
         self.system.add_request("move", floor, self.user)
 
+    def move(self, y):
+        new_pos = self.Inside_Elvetor_Car.y() + y
+        self.Inside_Elvetor_Car.move(30, new_pos)
+
+
     def set_user(self, user, button):
         if self.user is "operator":
             button.setEnabled(False)
@@ -824,6 +825,9 @@ class Ui_ProgramForm(object):
         else:
             button.setEnabled(True)
             self.user = "operator"
+
+    def get_sys(self):
+        return self.system
 
     def retranslateUi(self, ProgramForm):
         _translate = QtCore.QCoreApplication.translate
@@ -894,14 +898,78 @@ class Ui_ProgramForm(object):
         self.label_12.setText(_translate("ProgramForm", "close"))
         self.label_8.setText(_translate("ProgramForm", "close"))
 
+#Main Program
+GUI = Ui_ProgramForm()
 
+def sim_loop():
+    crashed = False
+    clock = pygame.time.Clock()
+    sys = GUI.get_sys()
+    car = GUI.get_sys().get_car()
+    dis_per_floor = 136
+    y_change = -1
+    first_floor = -69
+    second_floor = -205
+    third_floor = -341
+    fourth_floor = -477
+    fifth_floor = -613
+    sys.add_request("move", 3, "passenger")
+    while not crashed:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                crashed = True
+
+        move = car.get_move()
+        print("Move: " + str(move))
+        dir = car.get_dir()
+        floor = car.get_req_floor()
+        if floor is 1:
+            dest_pos = first_floor
+        elif floor is 2:
+            dest_pos = second_floor
+        elif floor is 3:
+            dest_pos = third_floor
+        elif floor is 4:
+            dest_pos = fourth_floor
+        elif floor is 5:
+            dest_pos = fifth_floor
+
+        # move function
+        if move:
+            sys.safe_movement()
+            if dir == "up":
+                GUI.move(y_change)
+                elevator_pos = GUI.Inside_Elvetor_Car.y()
+                if elevator_pos <= dest_pos or elevator_pos <= fifth_floor:
+                    car.stop()
+                    pygame.mixer.music.load(os.path.abspath("Resources/elevator-ding.ogg"))
+                    pygame.mixer.music.play()
+            elif dir == "down":
+                GUI.move(abs(y_change))
+                elevator_pos = GUI.Inside_Elvetor_Car.y()
+                if elevator_pos >= dest_pos or elevator_pos <= fifth_floor:
+                    car.stop()
+                    pygame.mixer.music.load(os.path.abspath("Resources/elevator-ding.ogg"))
+                    pygame.mixer.music.play()
+
+            if  elevator_pos % dis_per_floor == 0:
+                if dir == "up":
+                    car.set_floor(car.get_floor() + 1)
+                elif dir == "down":
+                    car.set_floor(car.get_floor() - 1)
+        else:
+            sys.run()
+
+        clock.tick(60)
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     ProgramForm = QtWidgets.QWidget()
-    ui = Ui_ProgramForm()
+    ui = GUI
     ui.setupUi(ProgramForm)
     ProgramForm.show()
+    pygame.init()
+    sim_loop()
     sys.exit(app.exec_())
 
