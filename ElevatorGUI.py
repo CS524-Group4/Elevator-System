@@ -737,11 +737,15 @@ class Ui_ProgramForm(object):
         self.gridLayout.addLayout(self.gridLayout_4, 0, 2, 3, 1)
 
         self.retranslateUi(ProgramForm)
-        # all the clicked.connect:
-        #
-        #
-        #
 
+
+
+        ################################# all the clicked.connect: #################################
+
+
+
+
+                            ##All the Key_Floor##
         self.Button_Key_Floor1.clicked.connect(lambda: self.set_user("operator", self.Button_Sys_Onoff_Floor_1))
         self.Button_Key_Floor2.clicked.connect(lambda: self.set_user("operator", self.Button_Sys_Onoff_Floor_2))
         self.Button_Key_Floor3.clicked.connect(lambda: self.set_user("operator", self.Button_Sys_Onoff_Floor_3))
@@ -749,28 +753,54 @@ class Ui_ProgramForm(object):
         self.Button_Key_Floor5.clicked.connect(lambda: self.set_user("operator", self.Button_Sys_Onoff_Floor_5))
         self.Button_Key_Inside.clicked.connect(lambda: self.set_user("operator", self.Button_Sys_Onoff_Inside))
 
+                          ## All the Sys_Onoff ##
+        self.Button_Sys_Onoff_Inside.clicked.connect(lambda: self.set_Sys_Onoff())
+        self.Button_Sys_Onoff_Floor_1.clicked.connect(lambda: self.set_Sys_Onoff())
+        self.Button_Sys_Onoff_Floor_2.clicked.connect(lambda: self.set_Sys_Onoff())
+        self.Button_Sys_Onoff_Floor_3.clicked.connect(lambda: self.set_Sys_Onoff())
+        self.Button_Sys_Onoff_Floor_4.clicked.connect(lambda: self.set_Sys_Onoff())
+        self.Button_Sys_Onoff_Floor_5.clicked.connect(lambda: self.set_Sys_Onoff())
+
+                        ##All the Up and Down buttons ##
+        self.Button_Up_Floor_1.clicked.connect(lambda: self.floor_call(1))
+        self.Button_Up_Floor_2.clicked.connect(lambda: self.floor_call(2))
+        self.Button_Up_Floor_3.clicked.connect(lambda: self.floor_call(3))
+        self.Button_Up_Floor_4.clicked.connect(lambda: self.floor_call(4))
+        self.Button_Down_Floor_2.clicked.connect(lambda: self.floor_call(2))
+        self.Button_Down_Floor_3.clicked.connect(lambda: self.floor_call(3))
+        self.Button_Down_Floor_4.clicked.connect(lambda: self.floor_call(4))
+        self.Button_Down_Floor_5.clicked.connect(lambda: self.floor_call(5))
+
+
+                         ## All the inside number buttons ##
         self.Button_1_Inside.clicked.connect(lambda: self.floor_call(1))
         self.Button_2_Inside.clicked.connect(lambda: self.floor_call(2))
         self.Button_3_Inside.clicked.connect(lambda: self.floor_call(3))
         self.Button_4_Inside.clicked.connect(lambda: self.floor_call(4))
         self.Button_5_Inside.clicked.connect(lambda: self.floor_call(5))
-# need the emergency function to work
+
+
+                        ## All the other Inside buttons ##
+        # need the emergency function to work
         self.Button_Open_Door_Inside.clicked.connect(lambda: self.system.open_door())
         self.Button_Close_Door_Inside.clicked.connect(lambda: self.system.close_door())
         # self.Button_Emergency_Inside.clecked.connect(lambda: self.system.)
         self.Button_Stop_Inside.clicked.connect(lambda: self.system.get_car().stop())
 
-        self.Button_Up_Floor_1.clicked.connect(lambda: self.floor_call(1))
-        self.Button_Up_Floor_2.clicked.connect(lambda: self.floor_call(2))
-        self.Button_Up_Floor_3.clicked.connect(lambda: self.floor_call(3))
-        self.Button_Up_Floor_4.clicked.connect(lambda: self.floor_call(4))
+                             ## All the sensors: ##
+        self.Button_S1.clicked.connect(lambda: self.smoke_button())
 
-        self.Button_Down_Floor_2.clicked.connect(lambda: self.floor_call(2))
-        self.Button_Down_Floor_3.clicked.connect(lambda: self.floor_call(3))
-        self.Button_Down_Floor_4.clicked.connect(lambda: self.floor_call(4))
-        #self.Button_Down_Floor_5.clicked.connect(lambda: self.floor_call(5))
+
+
+
+
+
+
+
+
+
         #test method for emergency
-        self.Button_Down_Floor_5.clicked.connect(lambda: self.test_emergency())
+        #self.Button_Down_Floor_5.clicked.connect(lambda: self.test_emergency())
 
 
 
@@ -778,7 +808,7 @@ class Ui_ProgramForm(object):
 
 
 
-        ## end of clicked.connect
+        ################################# end of clicked.connect #################################
 
         QtCore.QMetaObject.connectSlotsByName(ProgramForm)
         ProgramForm.setTabOrder(self.Button_1_Inside, self.Button_2_Inside)
@@ -813,6 +843,30 @@ class Ui_ProgramForm(object):
         ProgramForm.setTabOrder(self.Button_Sys_Onoff_Floor_4, self.Button_Sys_Onoff_Floor_2)
         ProgramForm.setTabOrder(self.Button_Sys_Onoff_Floor_2, self.Button_Up_Floor_2)
 
+    ################################# All the Functions #################################
+
+    def smoke_button(self):
+        if self.system.get_sensor_controller().get_smoke().get_measure() == False:
+            smoke = self.system.get_sensor_controller().get_smoke()
+            self.system.get_sensor_controller().set_sensor_measure(smoke, True)
+            self.Button_S1.setText("Stop testing smoke")
+        else:
+            self.reset()
+            self.Button_S1.setText("There is smoke")
+
+
+
+
+    def reset(self):
+        self.system.reset()
+
+    def get_door(self):
+        if self.system.get_door() == True:
+            self.label_8.setText("Open")
+        elif self.system.get_door() == False:
+            self.label_8.setText("Close")
+
+
     def floor_call (self, floor):
         self.system.add_request("move", floor, self.user)
 
@@ -836,6 +890,7 @@ class Ui_ProgramForm(object):
         speed = self.system.get_sensor_controller().get_speed()
         self.system.get_sensor_controller().set_sensor_measure(speed, 90)
 
+    ################################# End #################################
     def retranslateUi(self, ProgramForm):
         _translate = QtCore.QCoreApplication.translate
         ProgramForm.setWindowTitle(_translate("ProgramForm", "Group 4 Elevator project"))
@@ -892,7 +947,7 @@ class Ui_ProgramForm(object):
         self.Button_S3.setText(_translate("ProgramForm", "there is  smoke"))
         self.Button_S6.setText(_translate("ProgramForm", "the is not closing"))
         self.Button_S5.setText(_translate("ProgramForm", "there is  smoke"))
-        self.Button_S1.setText(_translate("ProgramForm", "there is  smoke"))
+        self.Button_S1.setText(_translate("ProgramForm", "There is smoke"))
         self.Button_S2.setText(_translate("ProgramForm", "there is  smoke"))
         self.label_28.setText(_translate("ProgramForm", "Scenarios"))
         self.Button_S7.setText(_translate("ProgramForm", "the wight is over the limet"))
@@ -905,7 +960,11 @@ class Ui_ProgramForm(object):
         self.label_12.setText(_translate("ProgramForm", "close"))
         self.label_8.setText(_translate("ProgramForm", "close"))
 
-#Main Program
+
+        ################################# Main Program #################################
+
+
+
 GUI = Ui_ProgramForm()
 pygame.init()
 
@@ -969,6 +1028,7 @@ def sim_loop():
                     last = time.time()
                     pygame.mixer.music.load(os.path.abspath("Resources/elevator-ding.ogg"))
                     pygame.mixer.music.play()
+                    GUI.get_door()
             elif dir == "down":
                 GUI.move(abs(y_change))
                 elevator_pos = GUI.Inside_Elvetor_Car.y()
@@ -977,7 +1037,7 @@ def sim_loop():
                     last = time.time()
                     pygame.mixer.music.load(os.path.abspath("Resources/elevator-ding.ogg"))
                     pygame.mixer.music.play()
-
+                    GUI.get_door()
 
             if  elevator_pos % dis_per_floor == 0:
                 if dir == "up":

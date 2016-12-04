@@ -36,6 +36,9 @@ class CarController:
     def door_open(self): # DoorOpen
         self.is_open = False
 
+    def get_door(self):
+        return self.is_open
+
     def door_close(self): # DoorClose
         self.is_open = True
 

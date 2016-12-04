@@ -18,6 +18,7 @@ class SensorController ():
         try:
             for x in self.sensors:
                 safe = x.is_safe()
+                print("Sensor: " + str(safe))
                 if not safe:
                     return False
 
@@ -84,9 +85,9 @@ class SensorController ():
         try:
             sensor.set_health(100)
             if type(sensor) is SmokeSensor or type(sensor) is DoorSensor:
-                sensor.set(False)
+                sensor.set_measure(False)
             else:
-                sensor.set(0.0)
+                sensor.set_measure(0.0)
 
         except TypeError:
             print("Error in Reset Sensor(Type)")
