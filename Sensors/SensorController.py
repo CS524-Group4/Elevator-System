@@ -25,9 +25,11 @@ class SensorController ():
             return True
 
         except TypeError:
+            print("Type Error")
             return False
 
         except ValueError:
+            print("Val Error")
             return False
 
     def reset_all_sensors(self):

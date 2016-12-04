@@ -2,6 +2,7 @@ from queue import PriorityQueue
 from CarController import CarController
 from Request import Request
 from Sensors.SensorController import SensorController
+from twilio.rest import TwilioRestClient
 
 
 class ElevatorSystem:
@@ -45,10 +46,6 @@ class ElevatorSystem:
                 cur_request = self.__next_request()
                 if cur_request.request == "move":
                     self.move_elevator(cur_request.floor, cur_request.user)
-                if cur_request.request == "emergency stop":
-                    self.r_queue.queue.clear()
-                    self.move_near_floor()
-                    self.emergency = True
             else:
                 print("Waiting for request")
         else:
@@ -56,6 +53,7 @@ class ElevatorSystem:
 
     def reset(self):
         self.emergency = False
+        self.in_call = False
         self.sensors.reset_all_sensors()
 
     #Moves the car
@@ -90,9 +88,11 @@ class ElevatorSystem:
     #Checks all sensors to see if its safe
     def is_safe(self):
         safe = self.sensors.check_all_sensors()
-        if not safe:
-            self.car.stop()
-            self.add_request("emergency stop", 0, "operator")
+        if not safe and not self.emergency:
+            self.emergency_call()
+            self.r_queue.queue.clear()
+            self.move_near_floor()
+
 
     #gets current floor
     def get_floor(self):
@@ -113,6 +113,7 @@ class ElevatorSystem:
         self.in_call = False
         print("Moving to nearest floor: " + str(self.get_floor()))
         self.move_elevator(1, "operator")
+        self.emergency = True
 
     #Checks a specfic sensor
     def check_sensor(self, measure_sensor):
@@ -132,6 +133,18 @@ class ElevatorSystem:
         else:
             self.emergency = True
             return False
+
+    def emergency_call(self):
+        ACCOUNT_SID = "AC5825ac73a66a689e26884d0eb8090a12"
+        AUTH_TOKEN = "cfde9e715e58e1ccc74f52a7ec0fb639"
+
+        client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+
+        client.messages.create(
+            to="+12404467736",
+            from_="+12404398153",
+            body="There is a emergency with Elevator 1B5 in Hodson Hall, please attend to immediately",
+        )
 
 
 
