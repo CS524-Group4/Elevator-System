@@ -46,11 +46,6 @@ class ElevatorSystem:
                 cur_request = self.__next_request()
                 if cur_request.request == "move":
                     self.move_elevator(cur_request.floor, cur_request.user)
-                if cur_request.request == "emergency stop":
-                    self.emergency_call()
-                    self.r_queue.queue.clear()
-                    self.move_near_floor()
-                    self.emergency = True
             else:
                 print("Waiting for request")
         else:
@@ -58,6 +53,7 @@ class ElevatorSystem:
 
     def reset(self):
         self.emergency = False
+        self.in_call = False
         self.sensors.reset_all_sensors()
 
     #Moves the car
@@ -92,9 +88,11 @@ class ElevatorSystem:
     #Checks all sensors to see if its safe
     def is_safe(self):
         safe = self.sensors.check_all_sensors()
-        if not safe:
-            self.car.stop()
-            self.add_request("emergency stop", 0, "operator")
+        if not safe and not self.emergency:
+            self.emergency_call()
+            self.r_queue.queue.clear()
+            self.move_near_floor()
+
 
     #gets current floor
     def get_floor(self):
@@ -115,6 +113,7 @@ class ElevatorSystem:
         self.in_call = False
         print("Moving to nearest floor: " + str(self.get_floor()))
         self.move_elevator(1, "operator")
+        self.emergency = True
 
     #Checks a specfic sensor
     def check_sensor(self, measure_sensor):

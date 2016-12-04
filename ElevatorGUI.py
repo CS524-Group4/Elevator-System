@@ -799,10 +799,6 @@ class Ui_ProgramForm(object):
 
 
 
-        #test method for emergency
-        #self.Button_Down_Floor_5.clicked.connect(lambda: self.test_emergency())
-
-
 
 
 
@@ -885,10 +881,6 @@ class Ui_ProgramForm(object):
 
     def get_sys(self):
         return self.system
-
-    def test_emergency(self):
-        speed = self.system.get_sensor_controller().get_speed()
-        self.system.get_sensor_controller().set_sensor_measure(speed, 90)
 
     ################################# End #################################
     def retranslateUi(self, ProgramForm):
