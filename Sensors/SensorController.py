@@ -15,12 +15,23 @@ class SensorController ():
         self.sensors = [self.door_sensor, self.pos_sensor, self.weight_sensor, self.speed_sensor, self.smoke_sensor]
 
     def check_all_sensors(self):
+        try:
+            for x in self.sensor:
+                safe = x.is_safe()
+                if not safe:
+                    return False
+                return True
+
+        except TypeError:
+            return False
+
+        except ValueError:
+            return False
+
+    def reset_all_sensors(self):
         for x in self.sensors:
-            safe = x.is_safe()
-            print(safe)
-            if not safe:
-                return False;
-        return True
+            self.reset_sensor(x)
+
 
     def check_sensor(self, sensor):
         safe = sensor.is_safe()
@@ -32,10 +43,26 @@ class SensorController ():
         sensor.set_health(health)
 
     def set_sensor_measure(self, sensor, measure):
-         sensor.set_measure(measure)
+         try :
+             sensor.set_measure(measure)
+
+         except ValueError:
+             print("Measure is wrong(Value)")
+
+         except TypeError:
+              print ("Measure is wrong(Type)")
+
+
 
     def set_sensor_tolerance (self, sensor, tol):
-        sensor.set_tolerance(tol)
+        try:
+            sensor.set_tolerance(tol)
+
+        except ValueError:
+            print("Tolerance is wrong(Value)")
+
+        except TypeError:
+            print("Tolerance is wrong(Type)")
 
     def get_door(self):
         return self.door_sensor
@@ -51,6 +78,22 @@ class SensorController ():
 
     def get_smoke(self):
         return self.smoke_sensor
+
+    def reset_sensor(self, sensor):
+        try:
+            sensor.set_health(100)
+            if type(sensor) is SmokeSensor or type(sensor) is DoorSensor:
+                sensor.set(False)
+            else:
+                sensor.set(0.0)
+
+        except TypeError:
+            print("Error in Reset Sensor(Type)")
+
+        except ValueError:
+            print("Error in Reset Sensor(Value)")
+
+
 
 
 
