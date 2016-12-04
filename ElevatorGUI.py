@@ -8,6 +8,7 @@
 
 import pygame
 import os
+import time
 from PyQt5 import QtCore, QtGui, QtWidgets, QtMultimedia
 from ElevatorSystem import ElevatorSystem
 
@@ -900,8 +901,17 @@ class Ui_ProgramForm(object):
 
 #Main Program
 GUI = Ui_ProgramForm()
+pygame.init()
 
 def sim_loop():
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    ProgramForm = QtWidgets.QWidget()
+    ui = GUI
+    ui.setupUi(ProgramForm)
+    ProgramForm.show()
+    #sys.exit(app.exec())
+
     crashed = False
     clock = pygame.time.Clock()
     sys = GUI.get_sys()
@@ -914,6 +924,10 @@ def sim_loop():
     fourth_floor = -477
     fifth_floor = -613
     sys.add_request("move", 3, "passenger")
+    now = 0
+    last = time.time()
+    waiting_time = 6
+
     while not crashed:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -942,6 +956,7 @@ def sim_loop():
                 elevator_pos = GUI.Inside_Elvetor_Car.y()
                 if elevator_pos <= dest_pos or elevator_pos <= fifth_floor:
                     car.stop()
+                    last = time.time()
                     pygame.mixer.music.load(os.path.abspath("Resources/elevator-ding.ogg"))
                     pygame.mixer.music.play()
             elif dir == "down":
@@ -949,8 +964,10 @@ def sim_loop():
                 elevator_pos = GUI.Inside_Elvetor_Car.y()
                 if elevator_pos >= dest_pos or elevator_pos <= fifth_floor:
                     car.stop()
+                    last = time.time()
                     pygame.mixer.music.load(os.path.abspath("Resources/elevator-ding.ogg"))
                     pygame.mixer.music.play()
+
 
             if  elevator_pos % dis_per_floor == 0:
                 if dir == "up":
@@ -958,18 +975,25 @@ def sim_loop():
                 elif dir == "down":
                     car.set_floor(car.get_floor() - 1)
         else:
-            sys.run()
+            if now - last >= waiting_time:
+                sys.run()
+            else:
+                now = time.time()
+
 
         clock.tick(60)
+    pygame.quit()
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    ProgramForm = QtWidgets.QWidget()
-    ui = GUI
-    ui.setupUi(ProgramForm)
-    ProgramForm.show()
-    pygame.init()
-    sim_loop()
-    sys.exit(app.exec_())
+sim_loop()
+
+# if __name__ == "__main__":
+#     import sys
+#     app = QtWidgets.QApplication(sys.argv)
+#     ProgramForm = QtWidgets.QWidget()
+#     ui = GUI
+#     ui.setupUi(ProgramForm)
+#     ProgramForm.show()
+#     pygame.init()
+#     sim_loop()
+#     sys.exit(app.exec_())
 
