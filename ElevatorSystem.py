@@ -78,6 +78,9 @@ class ElevatorSystem:
         self.car.door_close()
         print("Door closed")
 
+    def get_door(self):
+        self.car.get_door()
+
     #Gets sensor controller
     def get_sensor_controller(self):
         return self.sensors
