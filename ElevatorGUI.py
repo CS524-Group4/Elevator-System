@@ -789,6 +789,7 @@ class Ui_ProgramForm(object):
 
                              ## All the sensors: ##
         self.Button_S1.clicked.connect(lambda: self.smoke_button())
+        self.Button_S2.clicked.connect(lambda: self.weight_button())
 
 
 
@@ -846,10 +847,24 @@ class Ui_ProgramForm(object):
             smoke = self.system.get_sensor_controller().get_smoke()
             self.system.get_sensor_controller().set_sensor_measure(smoke, True)
             self.Button_S1.setText("Stop testing smoke")
-        else:
+            self.lineEdit_6.setText("Activated")
             self.reset()
-            self.Button_S1.setText("There is smoke")
+        else:
 
+            self.Button_S1.setText("There is smoke")
+            self.lineEdit_6.setText("Not Active")
+
+    def weight_button(self):
+        if self.system.get_sensor_controller().get_weight().get_measure() <= 1600.0:
+            weight = self.system.get_sensor_controller().get_weight()
+            self.system.get_sensor_controller().set_sensor_measure(weight, 3000)
+            self.Button_S2.setText("Stop testing Weight sensor")
+            self.lineEdit_6.setText("Activated")
+            self.reset()
+        else:
+
+            self.Button_S2.setText("The Weight is over the limet")
+            self.lineEdit_6.setText("Not Active")
 
 
 
@@ -857,16 +872,48 @@ class Ui_ProgramForm(object):
         self.system.reset()
 
     def get_door(self):
-        if self.system.get_door() == True:
-            self.label_8.setText("Open")
-        elif self.system.get_door() == False:
-            self.label_8.setText("Close")
+        if self.system.get_floor() == 5 :
+            if self.label_8.text == "Open":
+                self.label_8.setText("Close")
+            else:
+                self.label_8.setText("Open")
+
+        elif self.system.get_floor() == 4 :
+            if self.label_12.text == "Open":
+                self.label_12.setText("Close")
+            else:
+                self.label_12.setText("Open")
+
+        elif self.system.get_floor() == 3:
+            if self.label_13.text == "Open":
+                self.label_13.setText("Close")
+            else:
+                self.label_13.setText("Open")
+
+        elif self.system.get_floor() == 2:
+            if self.label_14.text == "Open":
+                self.label_14.setText("Close")
+            else:
+                self.label_14.setText("Open")
+
+        elif self.system.get_floor() == 1:
+            if self.label_15.text == "Open":
+                self.label_15.setText("Close")
+            else:
+                self.label_15.setText("Open")
+
+
 
 
     def floor_call (self, floor):
         self.system.add_request("move", floor, self.user)
 
     def move(self, y):
+        self.label_8.setText("Close")
+        self.label_12.setText("Close")
+        self.label_13.setText("Close")
+        self.label_14.setText("Close")
+        self.label_15.setText("Close")
         new_pos = self.Inside_Elvetor_Car.y() + y
         self.Inside_Elvetor_Car.move(30, new_pos)
 
@@ -940,7 +987,7 @@ class Ui_ProgramForm(object):
         self.Button_S6.setText(_translate("ProgramForm", "the is not closing"))
         self.Button_S5.setText(_translate("ProgramForm", "there is  smoke"))
         self.Button_S1.setText(_translate("ProgramForm", "There is smoke"))
-        self.Button_S2.setText(_translate("ProgramForm", "there is  smoke"))
+        self.Button_S2.setText(_translate("ProgramForm", "The weight is over the limit"))
         self.label_28.setText(_translate("ProgramForm", "Scenarios"))
         self.Button_S7.setText(_translate("ProgramForm", "the wight is over the limet"))
         self.Button_S8.setText(_translate("ProgramForm", "sensor3"))
