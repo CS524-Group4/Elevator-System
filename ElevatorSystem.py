@@ -2,6 +2,7 @@ from queue import PriorityQueue
 from CarController import CarController
 from Request import Request
 from Sensors.SensorController import SensorController
+from twilio.rest import TwilioRestClient
 
 
 class ElevatorSystem:
@@ -46,6 +47,7 @@ class ElevatorSystem:
                 if cur_request.request == "move":
                     self.move_elevator(cur_request.floor, cur_request.user)
                 if cur_request.request == "emergency stop":
+                    self.emergency_call()
                     self.r_queue.queue.clear()
                     self.move_near_floor()
                     self.emergency = True
@@ -129,6 +131,18 @@ class ElevatorSystem:
         else:
             self.emergency = True
             return False
+
+    def emergency_call(self):
+        ACCOUNT_SID = "AC5825ac73a66a689e26884d0eb8090a12"
+        AUTH_TOKEN = "cfde9e715e58e1ccc74f52a7ec0fb639"
+
+        client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+
+        client.messages.create(
+            to="+12404467736",
+            from_="+12404398153",
+            body="There is a emergency with Elevator 1B5 in Hodson Hall, please attend to immediately",
+        )
 
 
 
