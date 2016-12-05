@@ -1,125 +1,117 @@
 import pygame
 import os
-import random
-from time import sleep
-from ElevatorSystem import ElevatorSystem
-
+import time
+import sys
+from PyQt5 import QtWidgets
+from ElevatorGUI import ElevatorGUI
 
 pygame.init()
 
-#Display window size
-display_width = 600
-display_height = 850
 
-game_display = pygame.display.set_mode((display_width, display_height))
-pygame.display.set_caption('Elevator')
+class main():
+    def __init__(self):
+        self.gui = ElevatorGUI()
+        self.first_floor = -69
+        self.second_floor = -205
+        self.third_floor = -341
+        self.fourth_floor = -477
+        self.fifth_floor = -613
+        self.dis_per_floor = 136
+        self.y_change = -1
+        self.crashed = False
+        self.clock = pygame.time.Clock()
+        self.crashed = False
+        self.waiting_time = 6
+        self.dir = "up"
+        self.move = False
+        self.last = time.time()
+        self.sim_loop()
+    
+    def sim_loop(self):
+        app = QtWidgets.QApplication(sys.argv)
+        ProgramForm = QtWidgets.QWidget()
+        ui = self.gui
+        ui.setupUi(ProgramForm)
+        ProgramForm.show()
 
-black = (0, 0, 0)
-white = (255, 255, 255)
-red = (255, 0, 0)
+        e_sys = self.gui.get_sys()
+        car = self.gui.get_sys().get_car()
 
-sys = ElevatorSystem()
-car = sys.get_car()
-clock = pygame.time.Clock()
-crashed = False
-elev_img = pygame.image.load(os.path.abspath("Resources/level 3 elevator.png"))
-fore_img = pygame.image.load(os.path.abspath("Resources/all elevator 5 floors.png"))
-emergency_text = pygame.font.SysFont("monospace", 80)
-waiting_time = 5
+        now = 0
+    
+        while not self.crashed:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.crashed = True
+                if event.type == pygame.KEYDOWN:
+                    if event.type == pygame.K_ESCAPE:
+                        self.crashed = True
 
-#positions of image relative to window
-back_x = (display_width * 0.20)
-back_y = (display_height*0.0005)
-elev_y = (display_height * 0.780)
-elev_x = (display_width * 0.320)
-
-#speed of car
-y_change = 3
-#position to the floor destination
-dest_pos = 0
-#keeps track of position of elevator
-current_pos = 0
-#distance between floor
-dis_per_floor = 153
-
-#create images in simulation space
-def game_object(x, y, img):
-    game_display.blit(img, (x, y))
-
-#Displays emergency text if there is an emergency
-def check_emergency():
-    emergency = sys.get_emergency()
-    if emergency:
-        label = emergency_text.render("Emergency!", 1, red)
-        game_display.blit(label, (100, 100))
-
-
-#test variables
-sys.add_request("move", 5, "firefighter")
-sys.add_request("move", 3, "passenger")
-sys.add_request("move", 2, "firefighter")
-
-#Main simulation loop
-while not crashed:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            crashed = True
-
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                crashed = True
-            if event.key == pygame.K_DOWN:
-                speed = sys.get_sensor_controller().get_speed()
-                sys.get_sensor_controller().set_sensor_measure(speed, 90)
-
-
-    move = car.get_move()
-    print("Move: " + str(move))
-    dir = car.get_dir()
-    diff = car.get_diff()
-    dest_pos = abs(diff * dis_per_floor)
-
-    game_display.fill(white)
-
-    #move function
-    if move:
-        sys.safe_movement()
-        if dir == "up":
-            elev_y -= y_change
-        elif dir == "down":
-            elev_y += y_change
-
-        current_pos += y_change
-
-        if current_pos%dis_per_floor == 0:
-            print("Floor: ")
-            if dir == "up":
-                current_floor = car.get_floor() + 1
-                print("Current Floor: " + str(current_floor))
-                car.set_floor(current_floor)
+            self.update(e_sys,car)
+    
+            # move function
+            if self.move:
+                self.move_car(car, self.gui.Inside_Elvetor_Car.y(), self.dir)
             else:
-                current_floor = car.get_floor() - 1
-                car.set_floor(current_floor)
+                #Waits for the waiting time to run another request
+                if now - self.last >= self.waiting_time:
+                    e_sys.run()
+                else:
+                    now = time.time()
+    
+            self.clock.tick(60)
 
-        if current_pos >= dest_pos:
-            current_pos = 0
-            car.stop()
-            pygame.mixer.music.load("Resources/elevator-ding.ogg")
-            pygame.mixer.music.play()
-            sleep(waiting_time)
+    def move_car(self, car, elevator_pos, dir):
+        if dir == "up":
+            self.gui.move(self.y_change)
+            elevator_pos = self.gui.Inside_Elvetor_Car.y()
+            if elevator_pos <= self.dest_pos or elevator_pos <= self.fifth_floor:
+                car.stop()
+                self.last = time.time()
+                pygame.mixer.music.load(os.path.abspath("Resources/elevator-ding.ogg"))
+                pygame.mixer.music.play()
+                self.gui.get_door()
+        elif dir == "down":
+            self.gui.move(abs(self.y_change))
+            elevator_pos = self.gui.Inside_Elvetor_Car.y()
+            if elevator_pos >= self.dest_pos or elevator_pos <= self.fifth_floor:
+                car.stop()
+                self.last = time.time()
+                pygame.mixer.music.load(os.path.abspath("Resources/elevator-ding.ogg"))
+                pygame.mixer.music.play()
+                self.gui.get_door()
 
-    else:
-        sys.run()
+        if elevator_pos % self.dis_per_floor == 0:
+            if dir == "up":
+                car.set_floor(car.get_floor() + 1)
+                self.gui.Update_Display()
+            elif dir == "down":
+                car.set_floor(car.get_floor() - 1)
+                self.gui.Update_Display()
 
-    game_object(back_x, back_y, fore_img)
-    game_object(elev_x, elev_y, elev_img)
-    print("Emergency: " + str(sys.get_emergency()))
-    check_emergency()
+    def update(self, sys, car):
+        sys.is_safe()
+        self.move = car.get_move()
+        print("Move: " + str(self.move))
+        self.dir = car.get_dir()
+        floor = car.get_req_floor()
+        if floor is 1:
+            self.dest_pos = self.first_floor
+        elif floor is 2:
+            self.dest_pos = self.second_floor
+        elif floor is 3:
+            self.dest_pos = self.third_floor
+        elif floor is 4:
+            self.dest_pos = self.fourth_floor
+        elif floor is 5:
+            self.dest_pos = self.fifth_floor
+
+    def get_time(self):
+        return time.time()
 
 
-    pygame.display.update()
-    clock.tick(60)
 
-pygame.quit()
-quit()
 
+
+
+main()

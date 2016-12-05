@@ -25,6 +25,8 @@ class Sensor (ABC):
     def set_tolerance(self, tol):
         self.tolerance = tol
 
+    def get_measure(self):
+        return self.cur_measure
 
 
 
