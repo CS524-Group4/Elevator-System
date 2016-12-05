@@ -784,12 +784,18 @@ class Ui_ProgramForm(object):
         # need the emergency function to work
         self.Button_Open_Door_Inside.clicked.connect(lambda: self.system.open_door())
         self.Button_Close_Door_Inside.clicked.connect(lambda: self.system.close_door())
-        # self.Button_Emergency_Inside.clecked.connect(lambda: self.system.)
+        # self.Button_Emergency_Inside.clicked.connect(lambda: self.system.)
         self.Button_Stop_Inside.clicked.connect(lambda: self.system.get_car().stop())
 
                              ## All the sensors: ##
         self.Button_S1.clicked.connect(lambda: self.smoke_button())
         self.Button_S2.clicked.connect(lambda: self.weight_button())
+        self.Button_S3.clicked.connect(lambda: self.alignment_button())
+        self.Button_S4.clicked.connect(lambda: self.laser_sensor_button())
+        self.Button_S5.clicked.connect(lambda: self.Speed_Sensor_button())
+
+
+
 
 
 
@@ -842,6 +848,8 @@ class Ui_ProgramForm(object):
 
     ################################# All the Functions #################################
 
+
+    ################################# sensors Check #################################
     def smoke_button(self):
         if self.system.get_sensor_controller().get_smoke().get_measure() == False:
             smoke = self.system.get_sensor_controller().get_smoke()
@@ -865,6 +873,63 @@ class Ui_ProgramForm(object):
 
             self.Button_S2.setText("The Weight is over the limet")
             self.lineEdit_6.setText("Not Active")
+# need some changes
+    def alignment_button(self):
+        if self.system.get_sensor_controller().get_weight().get_measure() <= 1600.0:
+            weight = self.system.get_sensor_controller().get_weight()
+            self.system.get_sensor_controller().set_sensor_measure(weight, 3000)
+            self.Button_S3.setText("Stop alignment testing")
+            self.lineEdit_6.setText("Activated")
+            self.reset()
+        else:
+
+            self.Button_S3.setText("The Car is Not Aligned with the Floor")
+            self.lineEdit_6.setText("Not Active")
+# need some changes
+    def laser_sensor_button(self):
+        if self.system.get_sensor_controller().get_weight().get_measure() <= 1600.0:
+            weight = self.system.get_sensor_controller().get_weight()
+            self.system.get_sensor_controller().set_sensor_measure(weight, 3000)
+            self.Button_S4.setText("Stop testing laser sensor ")
+            self.lineEdit_6.setText("Activated")
+            self.reset()
+        else:
+
+            self.Button_S4.setText("There Is an Object between the Doors ")
+            self.lineEdit_6.setText("Not Active")
+
+# need some changes
+    def Speed_Sensor_button(self):
+        if self.system.get_sensor_controller().get_weight().get_measure() <= 1600.0:
+            weight = self.system.get_sensor_controller().get_weight()
+            self.system.get_sensor_controller().set_sensor_measure(weight, 3000)
+            self.Button_S5.setText("Stop testing Speed Sensor")
+            self.lineEdit_6.setText("Activated")
+            self.reset()
+        else:
+
+            self.Button_S5.setText("Check Speed Sensor")
+            self.lineEdit_6.setText("Not Active")
+
+        ################################# End of sensors Check #################################
+
+    labelHide = True
+
+    def set_Sys_Onoff(self):
+        if self.labelHide == True:
+            self.label_6.hide()
+            self.labelHide = False
+        else:
+            self.label_6.show()
+            self.labelHide = True
+
+    def Update_Display (self):
+        self.Diplay_Inside.display(self.system.get_floor())
+        self.Display_Floor1.setText(str(self.system.get_floor()))
+        self.Display_Floor2.setText(str(self.system.get_floor()))
+        self.Display_Floor3.setText(str(self.system.get_floor()))
+        self.Display_Floor4.setText(str(self.system.get_floor()))
+        self.Display_Floor5.setText(str(self.system.get_floor()))
 
 
 
@@ -982,10 +1047,10 @@ class Ui_ProgramForm(object):
         self.Button_1_Inside.setText(_translate("ProgramForm", "1"))
         self.Button_Emergency_Inside.setText(_translate("ProgramForm", "Emergency Call"))
         self.Button_Open_Door_Inside.setText(_translate("ProgramForm", "Open"))
-        self.Button_S4.setText(_translate("ProgramForm", "there is  smoke"))
-        self.Button_S3.setText(_translate("ProgramForm", "there is  smoke"))
+        self.Button_S4.setText(_translate("ProgramForm", "There Is an Object between the Doors"))
+        self.Button_S3.setText(_translate("ProgramForm", "The Car is Not Aligned with the Floor"))
         self.Button_S6.setText(_translate("ProgramForm", "the is not closing"))
-        self.Button_S5.setText(_translate("ProgramForm", "there is  smoke"))
+        self.Button_S5.setText(_translate("ProgramForm", "Check Speed Sensor "))
         self.Button_S1.setText(_translate("ProgramForm", "There is smoke"))
         self.Button_S2.setText(_translate("ProgramForm", "The weight is over the limit"))
         self.label_28.setText(_translate("ProgramForm", "Scenarios"))
@@ -1068,6 +1133,7 @@ def sim_loop():
                     pygame.mixer.music.load(os.path.abspath("Resources/elevator-ding.ogg"))
                     pygame.mixer.music.play()
                     GUI.get_door()
+                    GUI.Update_Display()
             elif dir == "down":
                 GUI.move(abs(y_change))
                 elevator_pos = GUI.Inside_Elvetor_Car.y()
@@ -1077,6 +1143,7 @@ def sim_loop():
                     pygame.mixer.music.load(os.path.abspath("Resources/elevator-ding.ogg"))
                     pygame.mixer.music.play()
                     GUI.get_door()
+                    GUI.Update_Display()
 
             if  elevator_pos % dis_per_floor == 0:
                 if dir == "up":
