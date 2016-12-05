@@ -89,7 +89,7 @@ class ElevatorSystem:
     def is_safe(self):
         safe = self.sensors.check_all_sensors()
         if not safe and not self.emergency:
-            self.emergency()
+            self.in_emergency()
 
 
     #gets current floor
@@ -132,7 +132,7 @@ class ElevatorSystem:
             self.emergency = True
             return False
 
-    def emergency(self):
+    def in_emergency(self):
         self.emergency_call()
         self.r_queue.queue.clear()
         self.move_near_floor()
