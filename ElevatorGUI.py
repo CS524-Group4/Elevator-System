@@ -784,7 +784,7 @@ class ElevatorGUI(object):
         # need the emergency function to work
         self.Button_Open_Door_Inside.clicked.connect(lambda: self.system.open_door())
         self.Button_Close_Door_Inside.clicked.connect(lambda: self.system.close_door())
-        # self.Button_Emergency_Inside.clecked.connect(lambda: self.system.)
+        self.Button_Emergency_Inside.clicked.connect(lambda: self.system.in_emergency())
         self.Button_Stop_Inside.clicked.connect(lambda: self.system.get_car().stop())
 
         # All the sensors: ##

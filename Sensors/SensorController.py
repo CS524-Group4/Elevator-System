@@ -18,7 +18,6 @@ class SensorController ():
         try:
             for x in self.sensors:
                 safe = x.is_safe()
-                print("Sensor: " + str(safe))
                 if not safe:
                     return False
 

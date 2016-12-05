@@ -6,7 +6,6 @@ class CarController:
         self.speed = 2
         self.is_open = False
         self.is_moving = False
-        self.dir = "up"
         self.req_floor = 1
 
     #Allows car to move and returns difference of floor for car simulation in pygame
@@ -15,11 +14,9 @@ class CarController:
         diff = floor - self.current_floor
         if diff < 0:
             self.is_moving = True
-            self.dir = "down"
             self.req_floor = floor
         else:
             self.is_moving = True
-            self.dir = "up"
             self.req_floor = floor
 
     #Tells when floor is reach
@@ -54,14 +51,6 @@ class CarController:
     def set_floor(self, floor):
         self.current_floor = floor
         print("Arriving at Floor: " + str(self.current_floor))
-
-    #Get the direction of the elevator
-    def get_dir (self):
-        return self.dir
-
-    #Set direction of elevator
-    def set_dir(self, dir):
-        self.dir = dir
 
     def get_req_floor(self):
         return self.req_floor
