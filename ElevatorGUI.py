@@ -404,7 +404,7 @@ class ElevatorGUI(object):
         self.Diplay_Inside.setDigitCount(1)
         self.Diplay_Inside.setMode(QtWidgets.QLCDNumber.Dec)
         self.Diplay_Inside.setSegmentStyle(QtWidgets.QLCDNumber.Flat)
-        self.Diplay_Inside.setProperty("intValue", 5)
+        self.Diplay_Inside.setProperty("intValue", 1)
         self.Diplay_Inside.setObjectName("Diplay_Inside")
         self.gridLayout_12.addWidget(self.Diplay_Inside, 4, 1, 1, 1)
         spacerItem11 = QtWidgets.QSpacerItem(20, 100, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
@@ -787,25 +787,12 @@ class ElevatorGUI(object):
         # self.Button_Emergency_Inside.clecked.connect(lambda: self.system.)
         self.Button_Stop_Inside.clicked.connect(lambda: self.system.get_car().stop())
 
-                             ## All the sensors: ##
+        # All the sensors: ##
         self.Button_S1.clicked.connect(lambda: self.smoke_button())
-
-
-
-
-
-
-
-
-
-
-        #test method for emergency
-        #self.Button_Down_Floor_5.clicked.connect(lambda: self.test_emergency())
-
-
-
-
-
+        self.Button_S2.clicked.connect(lambda: self.weight_button())
+        self.Button_S3.clicked.connect(lambda: self.alignment_button())
+        self.Button_S4.clicked.connect(lambda: self.laser_sensor_button())
+        self.Button_S5.clicked.connect(lambda: self.Speed_Sensor_button())
 
 
         ################################# end of clicked.connect #################################
@@ -843,16 +830,91 @@ class ElevatorGUI(object):
         ProgramForm.setTabOrder(self.Button_Sys_Onoff_Floor_4, self.Button_Sys_Onoff_Floor_2)
         ProgramForm.setTabOrder(self.Button_Sys_Onoff_Floor_2, self.Button_Up_Floor_2)
 
-    ################################# All the Functions #################################
-
+        ################################# sensors Check #################################
     def smoke_button(self):
-        if self.system.get_sensor_controller().get_smoke().get_measure() == False:
+        if not self.system.get_sensor_controller().get_smoke().get_measure():
             smoke = self.system.get_sensor_controller().get_smoke()
             self.system.get_sensor_controller().set_sensor_measure(smoke, True)
             self.Button_S1.setText("Stop testing smoke")
+            self.lineEdit_6.setText("Activated")
         else:
-            self.reset()
+            smoke = self.system.get_sensor_controller().get_smoke()
+            self.system.get_sensor_controller().set_sensor_measure(smoke, False)
             self.Button_S1.setText("There is smoke")
+            self.lineEdit_6.setText("Not Active")
+            self.reset()
+
+    def weight_button(self):
+        if self.system.get_sensor_controller().get_weight().get_measure() >= 1600.0:
+            weight = self.system.get_sensor_controller().get_weight()
+            self.system.get_sensor_controller().set_sensor_measure(weight, 3000)
+            self.Button_S2.setText("Stop testing Weight sensor")
+            self.lineEdit_6.setText("Activated")
+        else:
+            self.Button_S2.setText("The Weight is over the limet")
+            self.lineEdit_6.setText("Not Active")
+            self.reset()
+
+
+            # need some changes
+
+    def alignment_button(self):
+        if self.system.get_sensor_controller().get_pos().get_measure() <= 0.5:
+            position = self.system.get_sensor_controller().get_pos()
+            self.system.get_sensor_controller().set_sensor_measure(position, 3000)
+            self.Button_S3.setText("Stop alignment testing")
+            self.lineEdit_6.setText("Activated")
+        else:
+            self.Button_S3.setText("The Car is Not Aligned with the Floor")
+            self.lineEdit_6.setText("Not Active")
+            self.reset()
+
+
+
+            # need some changes
+
+    def laser_sensor_button(self):
+        if self.system.get_sensor_controller().get_door().get_measure() == False:
+            door = self.system.get_sensor_controller().get_door()
+            self.system.get_sensor_controller().set_sensor_measure(door, True)
+            self.Button_S4.setText("Stop testing laser sensor ")
+            self.lineEdit_6.setText("Activated")
+        else:
+            self.Button_S4.setText("There Is an Object between the Doors ")
+            self.lineEdit_6.setText("Not Active")
+            self.reset()
+
+
+    def Speed_Sensor_button(self):
+        if self.system.get_sensor_controller().get_weight().get_measure() <= 1600.0:
+            weight = self.system.get_sensor_controller().get_weight()
+            self.system.get_sensor_controller().set_sensor_measure(weight, 3000)
+            self.Button_S5.setText("Stop testing Speed Sensor")
+            self.lineEdit_6.setText("Activated")
+        else:
+            self.Button_S5.setText("Check Speed Sensor")
+            self.lineEdit_6.setText("Not Active")
+            self.reset()
+
+                ################################# End of sensors Check #################################
+
+        labelHide = True
+
+    def set_Sys_Onoff(self):
+        if self.labelHide == True:
+            self.label_6.hide()
+            self.labelHide = False
+        else:
+            self.label_6.show()
+            self.labelHide = True
+
+    def Update_Display(self):
+        self.Diplay_Inside.display(self.system.get_floor())
+        self.Display_Floor1.setText(str(self.system.get_floor()))
+        self.Display_Floor2.setText(str(self.system.get_floor()))
+        self.Display_Floor3.setText(str(self.system.get_floor()))
+        self.Display_Floor4.setText(str(self.system.get_floor()))
+        self.Display_Floor5.setText(str(self.system.get_floor()))
 
 
 

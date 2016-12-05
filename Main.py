@@ -84,8 +84,10 @@ class main():
         if elevator_pos % self.dis_per_floor == 0:
             if dir == "up":
                 car.set_floor(car.get_floor() + 1)
+                self.gui.Update_Display()
             elif dir == "down":
                 car.set_floor(car.get_floor() - 1)
+                self.gui.Update_Display()
 
     def update(self, sys, car):
         sys.is_safe()
