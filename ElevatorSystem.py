@@ -112,7 +112,7 @@ class ElevatorSystem:
     def move_near_floor(self):
         self.in_call = False
         print("Moving to nearest floor: " + str(self.get_floor()))
-        self.move_elevator(1, "operator")
+        self.move_elevator(self.get_floor(), "operator")
         self.emergency = True
 
     #Checks a specfic sensor

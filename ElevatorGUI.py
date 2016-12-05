@@ -9,10 +9,10 @@
 import pygame
 import os
 import time
-from PyQt5 import QtCore, QtGui, QtWidgets, QtMultimedia
+from PyQt5 import QtCore, QtGui, QtWidgets
 from ElevatorSystem import ElevatorSystem
 
-class Ui_ProgramForm(object):
+class ElevatorGUI(object):
     def setupUi(self, ProgramForm):
         self.user = "passenger"
         self.system = ElevatorSystem()
@@ -789,7 +789,6 @@ class Ui_ProgramForm(object):
 
                              ## All the sensors: ##
         self.Button_S1.clicked.connect(lambda: self.smoke_button())
-        self.Button_S2.clicked.connect(lambda: self.weight_button())
 
 
 
@@ -798,6 +797,10 @@ class Ui_ProgramForm(object):
 
 
 
+
+
+        #test method for emergency
+        #self.Button_Down_Floor_5.clicked.connect(lambda: self.test_emergency())
 
 
 
@@ -847,24 +850,10 @@ class Ui_ProgramForm(object):
             smoke = self.system.get_sensor_controller().get_smoke()
             self.system.get_sensor_controller().set_sensor_measure(smoke, True)
             self.Button_S1.setText("Stop testing smoke")
-            self.lineEdit_6.setText("Activated")
-            self.reset()
         else:
-
+            self.reset()
             self.Button_S1.setText("There is smoke")
-            self.lineEdit_6.setText("Not Active")
 
-    def weight_button(self):
-        if self.system.get_sensor_controller().get_weight().get_measure() <= 1600.0:
-            weight = self.system.get_sensor_controller().get_weight()
-            self.system.get_sensor_controller().set_sensor_measure(weight, 3000)
-            self.Button_S2.setText("Stop testing Weight sensor")
-            self.lineEdit_6.setText("Activated")
-            self.reset()
-        else:
-
-            self.Button_S2.setText("The Weight is over the limet")
-            self.lineEdit_6.setText("Not Active")
 
 
 
@@ -872,48 +861,16 @@ class Ui_ProgramForm(object):
         self.system.reset()
 
     def get_door(self):
-        if self.system.get_floor() == 5 :
-            if self.label_8.text == "Open":
-                self.label_8.setText("Close")
-            else:
-                self.label_8.setText("Open")
-
-        elif self.system.get_floor() == 4 :
-            if self.label_12.text == "Open":
-                self.label_12.setText("Close")
-            else:
-                self.label_12.setText("Open")
-
-        elif self.system.get_floor() == 3:
-            if self.label_13.text == "Open":
-                self.label_13.setText("Close")
-            else:
-                self.label_13.setText("Open")
-
-        elif self.system.get_floor() == 2:
-            if self.label_14.text == "Open":
-                self.label_14.setText("Close")
-            else:
-                self.label_14.setText("Open")
-
-        elif self.system.get_floor() == 1:
-            if self.label_15.text == "Open":
-                self.label_15.setText("Close")
-            else:
-                self.label_15.setText("Open")
-
-
+        if self.system.get_door() == True:
+            self.label_8.setText("Open")
+        elif self.system.get_door() == False:
+            self.label_8.setText("Close")
 
 
     def floor_call (self, floor):
         self.system.add_request("move", floor, self.user)
 
     def move(self, y):
-        self.label_8.setText("Close")
-        self.label_12.setText("Close")
-        self.label_13.setText("Close")
-        self.label_14.setText("Close")
-        self.label_15.setText("Close")
         new_pos = self.Inside_Elvetor_Car.y() + y
         self.Inside_Elvetor_Car.move(30, new_pos)
 
@@ -928,6 +885,10 @@ class Ui_ProgramForm(object):
 
     def get_sys(self):
         return self.system
+
+    def test_emergency(self):
+        speed = self.system.get_sensor_controller().get_speed()
+        self.system.get_sensor_controller().set_sensor_measure(speed, 90)
 
     ################################# End #################################
     def retranslateUi(self, ProgramForm):
@@ -987,7 +948,7 @@ class Ui_ProgramForm(object):
         self.Button_S6.setText(_translate("ProgramForm", "the is not closing"))
         self.Button_S5.setText(_translate("ProgramForm", "there is  smoke"))
         self.Button_S1.setText(_translate("ProgramForm", "There is smoke"))
-        self.Button_S2.setText(_translate("ProgramForm", "The weight is over the limit"))
+        self.Button_S2.setText(_translate("ProgramForm", "there is  smoke"))
         self.label_28.setText(_translate("ProgramForm", "Scenarios"))
         self.Button_S7.setText(_translate("ProgramForm", "the wight is over the limet"))
         self.Button_S8.setText(_translate("ProgramForm", "sensor3"))
@@ -999,99 +960,5 @@ class Ui_ProgramForm(object):
         self.label_12.setText(_translate("ProgramForm", "close"))
         self.label_8.setText(_translate("ProgramForm", "close"))
 
-
-        ################################# Main Program #################################
-
-
-
-GUI = Ui_ProgramForm()
-pygame.init()
-
-def sim_loop():
-    #Add GUI
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    ProgramForm = QtWidgets.QWidget()
-    ui = GUI
-    ui.setupUi(ProgramForm)
-    ProgramForm.show()
-
-
-    crashed = False
-    clock = pygame.time.Clock()
-    e_sys = GUI.get_sys()
-    car = GUI.get_sys().get_car()
-    dis_per_floor = 136
-    y_change = -1
-    first_floor = -69
-    second_floor = -205
-    third_floor = -341
-    fourth_floor = -477
-    fifth_floor = -613
-    e_sys.add_request("move", 3, "passenger")
-    now = 0
-    last = time.time()
-    waiting_time = 6
-
-    while not crashed:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                crashed = True
-            if event.type == pygame.KEYDOWN:
-                if event.type == pygame.K_ESCAPE:
-                    crashed = True
-
-        e_sys.is_safe()
-        move = car.get_move()
-        print("Move: " + str(move))
-        dir = car.get_dir()
-        floor = car.get_req_floor()
-        if floor is 1:
-            dest_pos = first_floor
-        elif floor is 2:
-            dest_pos = second_floor
-        elif floor is 3:
-            dest_pos = third_floor
-        elif floor is 4:
-            dest_pos = fourth_floor
-        elif floor is 5:
-            dest_pos = fifth_floor
-
-        # move function
-        if move:
-            if dir == "up":
-                GUI.move(y_change)
-                elevator_pos = GUI.Inside_Elvetor_Car.y()
-                if elevator_pos <= dest_pos or elevator_pos <= fifth_floor:
-                    car.stop()
-                    last = time.time()
-                    pygame.mixer.music.load(os.path.abspath("Resources/elevator-ding.ogg"))
-                    pygame.mixer.music.play()
-                    GUI.get_door()
-            elif dir == "down":
-                GUI.move(abs(y_change))
-                elevator_pos = GUI.Inside_Elvetor_Car.y()
-                if elevator_pos >= dest_pos or elevator_pos <= fifth_floor:
-                    car.stop()
-                    last = time.time()
-                    pygame.mixer.music.load(os.path.abspath("Resources/elevator-ding.ogg"))
-                    pygame.mixer.music.play()
-                    GUI.get_door()
-
-            if  elevator_pos % dis_per_floor == 0:
-                if dir == "up":
-                    car.set_floor(car.get_floor() + 1)
-                elif dir == "down":
-                    car.set_floor(car.get_floor() - 1)
-        else:
-            #Waits for the waiting time to run another request
-            if now - last >= waiting_time:
-                e_sys.run()
-            else:
-                now = time.time()
-
-        clock.tick(60)
-
-sim_loop()
 
 
