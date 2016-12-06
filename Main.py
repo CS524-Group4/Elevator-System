@@ -59,6 +59,7 @@ class main():
                         pygame.mixer.music.load(os.path.abspath("Resources/crazy-bell.ogg"))
                         pygame.mixer.music.play()
                     else:
+                        self.gui.close_door()
                         e_sys.run()
 
 
@@ -68,7 +69,6 @@ class main():
             self.clock.tick(60)
 
     def move_car(self, car, elevator_pos):
-        self.gui.close_door()
         if elevator_pos > self.dest_pos:
             self.gui.move(self.y_change)
             elevator_pos = self.gui.Inside_Elvetor_Car.y()
