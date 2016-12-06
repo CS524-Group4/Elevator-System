@@ -32,6 +32,26 @@ class ElevatorSystem:
             print("Floor " + str(floor) + "added to up queue")
             self.up_queue.put(new_request)
 
+    def add_down(self, request, floor, user):
+        if user == "passenger":
+            new_request = Request(2, request, floor, user)
+        elif user == "operator":
+            new_request = Request(0, request, floor, user)
+        elif user == "firefighter":
+            new_request = Request(0, request, floor, user)
+
+        self.down_queue.put(new_request)
+
+    def add_up(self, request, floor, user):
+        if user == "passenger":
+            new_request = Request(2, request, floor, user)
+        elif user == "operator":
+            new_request = Request(0, request, floor, user)
+        elif user == "firefighter":
+            new_request = Request(0, request, floor, user)
+
+        self.up_queue.put(new_request)
+
     #gets next request from queue
     def __next_request(self):
         if self.car.get_direction() == "up" and not self.up_queue.empty():

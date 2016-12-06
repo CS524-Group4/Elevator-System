@@ -10,7 +10,7 @@ import pygame
 import os
 import time
 from PyQt5 import QtCore, QtGui, QtWidgets
-from ElevatorSystemv2 import ElevatorSystem
+from ElevatorSystem import ElevatorSystem
 
 class ElevatorGUI(object):
     def setupUi(self, ProgramForm):
@@ -911,14 +911,14 @@ class ElevatorGUI(object):
         self.Button_Sys_Onoff_Floor_5.clicked.connect(lambda: self.turn_on_off())
 
                         ##All the Up and Down buttons ##
-        self.Button_Up_Floor_1.clicked.connect(lambda: self.floor_call(1))
-        self.Button_Up_Floor_2.clicked.connect(lambda: self.floor_call(2))
-        self.Button_Up_Floor_3.clicked.connect(lambda: self.floor_call(3))
-        self.Button_Up_Floor_4.clicked.connect(lambda: self.floor_call(4))
-        self.Button_Down_Floor_2.clicked.connect(lambda: self.floor_call(2))
-        self.Button_Down_Floor_3.clicked.connect(lambda: self.floor_call(3))
-        self.Button_Down_Floor_4.clicked.connect(lambda: self.floor_call(4))
-        self.Button_Down_Floor_5.clicked.connect(lambda: self.floor_call(5))
+        self.Button_Up_Floor_1.clicked.connect(lambda: self.move_up(1))
+        self.Button_Up_Floor_2.clicked.connect(lambda: self.move_up(2))
+        self.Button_Up_Floor_3.clicked.connect(lambda: self.move_up(3))
+        self.Button_Up_Floor_4.clicked.connect(lambda: self.move_up(4))
+        self.Button_Down_Floor_2.clicked.connect(lambda: self.move_down(2))
+        self.Button_Down_Floor_3.clicked.connect(lambda: self.move_down(3))
+        self.Button_Down_Floor_4.clicked.connect(lambda: self.move_down(4))
+        self.Button_Down_Floor_5.clicked.connect(lambda: self.move_down(5))
 
 
                          ## All the inside number buttons ##
@@ -933,8 +933,8 @@ class ElevatorGUI(object):
         # need the emergency function to work
         self.Button_Open_Door_Inside.clicked.connect(lambda: self.system.open_door())
         self.Button_Close_Door_Inside.clicked.connect(lambda: self.system.close_door())
-        self.Button_Emergency_Inside.clicked.connect(lambda: self.system.in_emergency())
-        self.Button_Stop_Inside.clicked.connect(lambda: self.system.get_car().stop())
+        self.Button_Emergency_Inside.clicked.connect(lambda: self.system.emergency_call())
+        self.Button_Stop_Inside.clicked.connect(lambda: self.system.in_emergency())
 
         # All the sensors: ##
         self.Button_S1.clicked.connect(lambda: self.smoke_button())
@@ -1005,11 +1005,18 @@ class ElevatorGUI(object):
             self.reset()
 
     def weight_button(self):
-        if self.system.get_sensor_controller().get_weight().get_measure() <= 1600.0:
-            weight = self.system.get_sensor_controller().get_weight()
-            self.system.get_sensor_controller().set_sensor_measure(weight, float(self.lineEdit_wight.text()))
-            self.Button_S2.setText("Stop testing Weight sensor")
-            self.lineEdit_6.setText("Activated")
+        if not self.lineEdit_wight.text() is "":
+            if float(self.lineEdit_wight.text()) >= 1.5:
+                weight = self.system.get_sensor_controller().get_weight()
+                weight.set_measure(float(self.lineEdit_wight.text()))
+                self.lineEdit_wight.clear()
+                self.Button_S2.setText("Stop testing Weight Sensor")
+                self.lineEdit_6.setText("Activated")
+            else:
+                self.lineEdit_wight.clear()
+                self.Button_S2.setText("The weight = ")
+                self.lineEdit_6.setText("Not Active")
+                self.reset()
         else:
             self.Button_S2.setText("The weight = ")
             self.lineEdit_6.setText("Not Active")
@@ -1019,13 +1026,20 @@ class ElevatorGUI(object):
             # need some changes
 
     def alignment_button(self):
-        if self.system.get_sensor_controller().get_pos().get_measure() <= 0.5:
-            position = self.system.get_sensor_controller().get_pos()
-            self.system.get_sensor_controller().set_sensor_measure(position, 3000)
-            self.Button_S3.setText("Stop alignment testing")
-            self.lineEdit_6.setText("Activated")
+        if not self.lineEdit_Align.text() is "":
+            if float(self.lineEdit_Align.text()) >= 1.5:
+                pos = self.system.get_sensor_controller().get_pos()
+                pos.set_measure(float(self.lineEdit_Align.text()))
+                self.lineEdit_Align.clear()
+                self.Button_S3.setText("Stop testing Position Sensor")
+                self.lineEdit_6.setText("Activated")
+            else:
+                self.lineEdit_Align.clear()
+                self.Button_S3.setText("Not aligned by = ")
+                self.lineEdit_6.setText("Not Active")
+                self.reset()
         else:
-            self.Button_S3.setText("The Car is Not Aligned with the Floor by =")
+            self.Button_S3.setText("Not aligned by = ")
             self.lineEdit_6.setText("Not Active")
             self.reset()
 
@@ -1036,7 +1050,7 @@ class ElevatorGUI(object):
     def laser_sensor_button(self):
         if not self.system.get_sensor_controller().get_door().get_measure():
             door = self.system.get_sensor_controller().get_door()
-            self.system.get_sensor_controller().set_sensor_measure(door, True)
+            door.set_measure(True)
             self.Button_S4.setText("Stop testing laser sensor ")
 
         else:
@@ -1045,11 +1059,18 @@ class ElevatorGUI(object):
 
 
     def Speed_Sensor_button(self):
-        if self.system.get_sensor_controller().get_weight().get_measure() <= 1600.0:
-            weight = self.system.get_sensor_controller().get_weight()
-            self.system.get_sensor_controller().set_sensor_measure(weight, 3000)
-            self.Button_S5.setText("Stop testing Speed Sensor")
-            self.lineEdit_6.setText("Activated")
+
+        if not self.lineEdit__speed.text() is "":
+            if float(self.lineEdit__speed.text()) >= 3.0:
+                speed = self.system.get_sensor_controller().get_speed()
+                speed.set_measure(float(self.lineEdit__speed.text()))
+                self.lineEdit__speed.clear()
+                self.Button_S5.setText("Stop testing Speed Sensor")
+                self.lineEdit_6.setText("Activated")
+            else:
+                self.Button_S5.setText("The speed =")
+                self.lineEdit_6.setText("Not Active")
+                self.reset()
         else:
             self.Button_S5.setText("The speed =")
             self.lineEdit_6.setText("Not Active")
@@ -1285,6 +1306,12 @@ class ElevatorGUI(object):
 
     def floor_call (self, floor):
         self.system.add_request("move", floor, self.user)
+
+    def move_down(self, floor):
+        self.system.add_down("move", floor, self.user)
+
+    def move_up(self, floor):
+        self.system.add_up("move", floor, self.user)
 
     def move(self, y):
         new_pos = self.Inside_Elvetor_Car.y() + y
