@@ -890,13 +890,13 @@ class ElevatorGUI(object):
             self.reset()
 
     def weight_button(self):
-        if self.system.get_sensor_controller().get_weight().get_measure() >= 1600.0:
+        if self.system.get_sensor_controller().get_weight().get_measure() <= 1600.0:
             weight = self.system.get_sensor_controller().get_weight()
-            self.system.get_sensor_controller().set_sensor_measure(weight, 3000)
+            self.system.get_sensor_controller().set_sensor_measure(weight, float(self.lineEdit_wight.text()))
             self.Button_S2.setText("Stop testing Weight sensor")
             self.lineEdit_6.setText("Activated")
         else:
-            self.Button_S2.setText("The Weight is over the limit")
+            self.Button_S2.setText("The weight = ")
             self.lineEdit_6.setText("Not Active")
             self.reset()
 
@@ -910,7 +910,7 @@ class ElevatorGUI(object):
             self.Button_S3.setText("Stop alignment testing")
             self.lineEdit_6.setText("Activated")
         else:
-            self.Button_S3.setText("The Car is Not Aligned with the Floor")
+            self.Button_S3.setText("The Car is Not Aligned with the Floor by =")
             self.lineEdit_6.setText("Not Active")
             self.reset()
 
@@ -919,14 +919,13 @@ class ElevatorGUI(object):
             # need some changes
 
     def laser_sensor_button(self):
-        if self.system.get_sensor_controller().get_door().get_measure() == False:
+        if not self.system.get_sensor_controller().get_door().get_measure():
             door = self.system.get_sensor_controller().get_door()
             self.system.get_sensor_controller().set_sensor_measure(door, True)
             self.Button_S4.setText("Stop testing laser sensor ")
-            self.lineEdit_6.setText("Activated")
+
         else:
             self.Button_S4.setText("There Is an Object between the Doors ")
-            self.lineEdit_6.setText("Not Active")
             self.reset()
 
 
@@ -937,7 +936,7 @@ class ElevatorGUI(object):
             self.Button_S5.setText("Stop testing Speed Sensor")
             self.lineEdit_6.setText("Activated")
         else:
-            self.Button_S5.setText("Check Speed Sensor")
+            self.Button_S5.setText("The speed =")
             self.lineEdit_6.setText("Not Active")
             self.reset()
 
@@ -969,11 +968,28 @@ class ElevatorGUI(object):
     def reset(self):
         self.system.reset()
 
-    def get_door(self):
-        if self.system.get_door() == True:
+    def open_door(self):
+        if self.system.get_floor() == 5:
             self.label_8.setText("Open")
-        elif self.system.get_door() == False:
-            self.label_8.setText("Close")
+
+        elif self.system.get_floor() == 4:
+            self.label_12.setText("Open")
+
+        elif self.system.get_floor() == 3:
+            self.label_13.setText("Open")
+
+        elif self.system.get_floor() == 2:
+            self.label_14.setText("Open")
+
+        elif self.system.get_floor() == 1:
+            self.label_15.setText("Open")
+
+    def close_door(self):
+        self.label_8.setText("Close")
+        self.label_12.setText("Close")
+        self.label_13.setText("Close")
+        self.label_14.setText("Close")
+        self.label_15.setText("Close")
 
 
     def floor_call (self, floor):
@@ -1052,12 +1068,12 @@ class ElevatorGUI(object):
         self.Button_1_Inside.setText(_translate("ProgramForm", "1"))
         self.Button_Emergency_Inside.setText(_translate("ProgramForm", "Emergency Call"))
         self.Button_Open_Door_Inside.setText(_translate("ProgramForm", "Open"))
-        self.Button_S1.setText(_translate("ProgramForm", "1"))
-        self.Button_S5.setText(_translate("ProgramForm", "5"))
-        self.Button_S3.setText(_translate("ProgramForm", "3"))
+        self.Button_S1.setText(_translate("ProgramForm", "There is smoke"))
+        self.Button_S5.setText(_translate("ProgramForm", "The speed ="))
+        self.Button_S3.setText(_translate("ProgramForm", "The Car is Not Aligned with the Floor by ="))
         self.label_28.setText(_translate("ProgramForm", "Scenarios"))
-        self.Button_S4.setText(_translate("ProgramForm", "4"))
-        self.Button_S2.setText(_translate("ProgramForm", "2"))
+        self.Button_S4.setText(_translate("ProgramForm", "There Is an Object between the Doors"))
+        self.Button_S2.setText(_translate("ProgramForm", "The weight = "))
         self.groupBox_4.setTitle(_translate("ProgramForm", "system"))
         self.groupBox.setTitle(_translate("ProgramForm", "door situation"))
         self.label_15.setText(_translate("ProgramForm", "close"))

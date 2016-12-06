@@ -1,6 +1,7 @@
 import pygame
 import os
-import time
+import datetime
+from datetime import timedelta
 import sys
 from PyQt5 import QtWidgets
 from ElevatorGUI import ElevatorGUI
@@ -23,7 +24,7 @@ class main():
         self.crashed = False
         self.waiting_time = 6
         self.move = False
-        self.last = time.time()
+        self.last = datetime.datetime.now()
         self.sim_loop()
     
     def sim_loop(self):
@@ -36,7 +37,7 @@ class main():
         e_sys = self.gui.get_sys()
         car = self.gui.get_sys().get_car()
 
-        now = 0
+        now = datetime.datetime.now()
     
         while not self.crashed:
             for event in pygame.event.get():
@@ -52,14 +53,15 @@ class main():
                 self.move_car(car, self.gui.Inside_Elvetor_Car.y())
             else:
                 #Waits for the waiting time to run another request
-                if now - self.last >= self.waiting_time:
-                    e_sys.run()
-                else:
-                    now = time.time()
+                    if now - self.last >= timedelta(seconds=self.waiting_time):
+                        e_sys.run()
+
+                    now = datetime.datetime.now()
     
             self.clock.tick(60)
 
     def move_car(self, car, elevator_pos):
+        self.gui.close_door()
         if elevator_pos > self.dest_pos:
             self.gui.move(self.y_change)
             elevator_pos = self.gui.Inside_Elvetor_Car.y()
@@ -70,10 +72,10 @@ class main():
             self.update_floor(elevator_pos, car)
         else:
             car.stop()
-            self.last = time.time()
+            self.gui.open_door()
+            self.last = datetime.datetime.now()
             pygame.mixer.music.load(os.path.abspath("Resources/elevator-ding.ogg"))
             pygame.mixer.music.play()
-            self.gui.get_door()
 
     def update(self, sys, car):
         sys.check_emergency()
