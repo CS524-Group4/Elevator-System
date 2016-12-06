@@ -1076,10 +1076,10 @@ class ElevatorGUI(object):
         self.Button_S2.setText(_translate("ProgramForm", "The weight = "))
         self.groupBox_4.setTitle(_translate("ProgramForm", "system"))
         self.groupBox.setTitle(_translate("ProgramForm", "door situation"))
-        self.label_15.setText(_translate("ProgramForm", "close"))
-        self.label_13.setText(_translate("ProgramForm", "close"))
-        self.label_14.setText(_translate("ProgramForm", "close"))
-        self.label_12.setText(_translate("ProgramForm", "close"))
-        self.label_8.setText(_translate("ProgramForm", "close"))
+        self.label_15.setText(_translate("ProgramForm", "Close"))
+        self.label_13.setText(_translate("ProgramForm", "Close"))
+        self.label_14.setText(_translate("ProgramForm", "Close"))
+        self.label_12.setText(_translate("ProgramForm", "Close"))
+        self.label_8.setText(_translate("ProgramForm", "Close"))
 
 

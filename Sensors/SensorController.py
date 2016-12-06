@@ -52,6 +52,7 @@ class SensorController ():
 
     def check_boarding_sensors(self):
         try:
+            print("is safe: " + str(self.weight_sensor.is_safe()))
             if self.weight_sensor.is_safe() and self.door_sensor.is_safe():
                 return True
             else:

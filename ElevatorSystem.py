@@ -116,7 +116,7 @@ class ElevatorSystem:
         self.emergency = True
 
     def safe_boarding(self):
-        self.sensors.check_boarding_sensors()
+        return self.sensors.check_boarding_sensors()
 
     def in_emergency(self):
         self.emergency_call()

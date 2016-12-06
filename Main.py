@@ -25,6 +25,7 @@ class main():
         self.waiting_time = 6
         self.move = False
         self.last = datetime.datetime.now()
+        self.warning_time = 3
         self.sim_loop()
     
     def sim_loop(self):
@@ -36,7 +37,7 @@ class main():
 
         e_sys = self.gui.get_sys()
         car = self.gui.get_sys().get_car()
-
+        self.gui.open_door()
         now = datetime.datetime.now()
     
         while not self.crashed:
@@ -52,11 +53,17 @@ class main():
             if self.move:
                 self.move_car(car, self.gui.Inside_Elvetor_Car.y())
             else:
-                #Waits for the waiting time to run another request
-                    if now - self.last >= timedelta(seconds=self.waiting_time):
+                if now - self.last >= timedelta(seconds=self.waiting_time):
+                    if not e_sys.safe_boarding():
+                        self.last = datetime.datetime.now() + timedelta(seconds=self.warning_time)
+                        pygame.mixer.music.load(os.path.abspath("Resources/elevator-ding.ogg"))
+                        pygame.mixer.music.play()
+                    else:
                         e_sys.run()
 
-                    now = datetime.datetime.now()
+
+                now = datetime.datetime.now()
+
     
             self.clock.tick(60)
 
