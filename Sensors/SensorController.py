@@ -35,12 +35,36 @@ class SensorController ():
         for x in self.sensors:
             self.reset_sensor(x)
 
+    def check_emergency_sensors(self):
+        try:
+            if self.speed_sensor.is_safe() and self.smoke_sensor.is_safe() and self.pos_sensor.is_safe():
+                return True
+            else:
+                return False
 
-    def check_sensor(self, sensor):
-        safe = sensor.is_safe()
-        if not safe:
-            return True
-        return False
+        except TypeError:
+            print("Type Error")
+            return False
+
+        except ValueError:
+            print("Val Error")
+            return False
+
+    def check_boarding_sensors(self):
+        try:
+            if self.weight_sensor.is_safe() and self.door_sensor.is_safe():
+                return True
+            else:
+                return False
+
+        except TypeError:
+            print("Type Error")
+            return False
+
+        except ValueError:
+            print("Val Error")
+            return False
+
 
     def set_sensor_health(self, sensor, health):
         sensor.set_health(health)

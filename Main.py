@@ -47,8 +47,7 @@ class main():
                         self.crashed = True
 
             self.update(e_sys,car)
-    
-            # move function
+
             if self.move:
                 self.move_car(car, self.gui.Inside_Elvetor_Car.y())
             else:
@@ -77,7 +76,7 @@ class main():
             self.gui.get_door()
 
     def update(self, sys, car):
-        sys.is_safe()
+        sys.check_emergency()
         self.move = car.get_move()
         floor = car.get_req_floor()
         if floor is 1:

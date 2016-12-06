@@ -88,8 +88,8 @@ class ElevatorSystem:
         return self.car
 
     #Checks all sensors to see if its safe
-    def is_safe(self):
-        safe = self.sensors.check_all_sensors()
+    def check_emergency(self):
+        safe = self.sensors.check_emergency_sensors()
         if not safe and not self.emergency:
             self.in_emergency()
 
@@ -104,7 +104,7 @@ class ElevatorSystem:
 
     def check_arrival(self):
         if not self.car.get_move():
-            if self.check_sensor("position"):
+            if self.sensors.get_pos().is_safe():
                 self.open_door()
                 self.in_call = False
 
@@ -115,24 +115,8 @@ class ElevatorSystem:
         self.move_elevator(self.get_floor(), "operator")
         self.emergency = True
 
-    #Checks a specfic sensor
-    def check_sensor(self, measure_sensor):
-        if measure_sensor == "position":
-            safe = self.sensors.get_pos().is_safe()
-        elif measure_sensor == "door":
-            safe = self.sensors.get_door().is_safe()
-        elif measure_sensor == "weight":
-            safe = self.sensors.get_weight().is_safe()
-        elif measure_sensor == "smoke":
-            safe = self.sensors.get_smoke().is_safe()
-        elif measure_sensor == "speed":
-            safe = self.sensors.get_speed().is_safe()
-        if safe:
-            self.emergency = False
-            return True
-        else:
-            self.emergency = True
-            return False
+    def safe_boarding(self):
+        self.sensors.check_boarding_sensors()
 
     def in_emergency(self):
         self.emergency_call()
