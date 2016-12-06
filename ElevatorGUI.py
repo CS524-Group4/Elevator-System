@@ -586,24 +586,15 @@ class ElevatorGUI(object):
         self.gridLayout_20.setObjectName("gridLayout_20")
         self.gridLayout_2 = QtWidgets.QGridLayout()
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.Button_S4 = QtWidgets.QPushButton(ProgramForm)
-        self.Button_S4.setObjectName("Button_S4")
-        self.gridLayout_2.addWidget(self.Button_S4, 3, 1, 1, 1)
-        self.Button_S3 = QtWidgets.QPushButton(ProgramForm)
-        self.Button_S3.setObjectName("Button_S3")
-        self.gridLayout_2.addWidget(self.Button_S3, 3, 0, 1, 1)
-        self.Button_S6 = QtWidgets.QPushButton(ProgramForm)
-        self.Button_S6.setObjectName("Button_S6")
-        self.gridLayout_2.addWidget(self.Button_S6, 4, 1, 1, 1)
-        self.Button_S5 = QtWidgets.QPushButton(ProgramForm)
-        self.Button_S5.setObjectName("Button_S5")
-        self.gridLayout_2.addWidget(self.Button_S5, 4, 0, 1, 1)
         self.Button_S1 = QtWidgets.QPushButton(ProgramForm)
         self.Button_S1.setObjectName("Button_S1")
         self.gridLayout_2.addWidget(self.Button_S1, 2, 0, 1, 1)
-        self.Button_S2 = QtWidgets.QPushButton(ProgramForm)
-        self.Button_S2.setObjectName("Button_S2")
-        self.gridLayout_2.addWidget(self.Button_S2, 2, 1, 1, 1)
+        self.Button_S5 = QtWidgets.QPushButton(ProgramForm)
+        self.Button_S5.setObjectName("Button_S5")
+        self.gridLayout_2.addWidget(self.Button_S5, 4, 0, 1, 1)
+        self.Button_S3 = QtWidgets.QPushButton(ProgramForm)
+        self.Button_S3.setObjectName("Button_S3")
+        self.gridLayout_2.addWidget(self.Button_S3, 3, 0, 1, 1)
         self.label_28 = QtWidgets.QLabel(ProgramForm)
         font = QtGui.QFont()
         font.setPointSize(14)
@@ -613,12 +604,66 @@ class ElevatorGUI(object):
         self.label_28.setFont(font)
         self.label_28.setObjectName("label_28")
         self.gridLayout_2.addWidget(self.label_28, 0, 0, 1, 1)
-        self.Button_S7 = QtWidgets.QPushButton(ProgramForm)
-        self.Button_S7.setObjectName("Button_S7")
-        self.gridLayout_2.addWidget(self.Button_S7, 5, 0, 1, 1)
-        self.Button_S8 = QtWidgets.QPushButton(ProgramForm)
-        self.Button_S8.setObjectName("Button_S8")
-        self.gridLayout_2.addWidget(self.Button_S8, 5, 1, 1, 1)
+        self.Button_S4 = QtWidgets.QPushButton(ProgramForm)
+        self.Button_S4.setObjectName("Button_S4")
+        self.gridLayout_2.addWidget(self.Button_S4, 2, 1, 1, 1)
+        self.Button_S2 = QtWidgets.QPushButton(ProgramForm)
+        self.Button_S2.setObjectName("Button_S2")
+        self.gridLayout_2.addWidget(self.Button_S2, 5, 0, 1, 1)
+        self.lineEdit_Align = QtWidgets.QLineEdit(ProgramForm)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.lineEdit_Align.sizePolicy().hasHeightForWidth())
+        self.lineEdit_Align.setSizePolicy(sizePolicy)
+        self.lineEdit_Align.setMinimumSize(QtCore.QSize(225, 0))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferDefault)
+        self.lineEdit_Align.setFont(font)
+        self.lineEdit_Align.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
+        self.lineEdit_Align.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.lineEdit_Align.setText("")
+        self.lineEdit_Align.setObjectName("lineEdit_Align")
+        self.gridLayout_2.addWidget(self.lineEdit_Align, 3, 1, 1, 1)
+        self.lineEdit__speed = QtWidgets.QLineEdit(ProgramForm)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.lineEdit__speed.sizePolicy().hasHeightForWidth())
+        self.lineEdit__speed.setSizePolicy(sizePolicy)
+        self.lineEdit__speed.setMinimumSize(QtCore.QSize(225, 0))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferDefault)
+        self.lineEdit__speed.setFont(font)
+        self.lineEdit__speed.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
+        self.lineEdit__speed.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.lineEdit__speed.setText("")
+        self.lineEdit__speed.setObjectName("lineEdit__speed")
+        self.gridLayout_2.addWidget(self.lineEdit__speed, 4, 1, 1, 1)
+        self.lineEdit_wight = QtWidgets.QLineEdit(ProgramForm)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.lineEdit_wight.sizePolicy().hasHeightForWidth())
+        self.lineEdit_wight.setSizePolicy(sizePolicy)
+        self.lineEdit_wight.setMinimumSize(QtCore.QSize(225, 0))
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        font.setKerning(True)
+        font.setStyleStrategy(QtGui.QFont.PreferDefault)
+        self.lineEdit_wight.setFont(font)
+        self.lineEdit_wight.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
+        self.lineEdit_wight.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.lineEdit_wight.setText("")
+        self.lineEdit_wight.setObjectName("lineEdit_wight")
+        self.gridLayout_2.addWidget(self.lineEdit_wight, 5, 1, 1, 1)
         self.gridLayout_20.addLayout(self.gridLayout_2, 1, 1, 1, 1)
         self.gridLayout.addLayout(self.gridLayout_20, 2, 0, 1, 1)
         spacerItem14 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -729,15 +774,119 @@ class ElevatorGUI(object):
         font.setWeight(75)
         self.label_8.setFont(font)
         self.label_8.setObjectName("label_8")
+        self.open_door_5 = QtWidgets.QLabel(self.frame)
+        self.open_door_5.setGeometry(QtCore.QRect(203, 40, 173, 161))
+        self.open_door_5.setText("")
+        self.open_door_5.setTextFormat(QtCore.Qt.RichText)
+        self.open_door_5.setPixmap(QtGui.QPixmap("Resources/elevator car from close to open.gif"))
+        self.open_door_5.setScaledContents(True)
+        self.open_door_5.setWordWrap(False)
+        self.open_door_5.setOpenExternalLinks(False)
+        self.open_door_5.setObjectName("open_door_5")
+        self.label_7 = QtWidgets.QLabel(self.frame)
+        self.label_7.setGeometry(QtCore.QRect(10, 510, 47, 13))
+        self.label_7.setText("")
+        self.label_7.setObjectName("label_7")
+        self.open_door_4 = QtWidgets.QLabel(self.frame)
+        self.open_door_4.setGeometry(QtCore.QRect(203, 178, 173, 161))
+        self.open_door_4.setText("")
+        self.open_door_4.setTextFormat(QtCore.Qt.RichText)
+        self.open_door_4.setPixmap(QtGui.QPixmap("Resources/elevator car from close to open.gif"))
+        self.open_door_4.setScaledContents(True)
+        self.open_door_4.setWordWrap(False)
+        self.open_door_4.setOpenExternalLinks(False)
+        self.open_door_4.setObjectName("open_door_4")
+        self.open_door_3 = QtWidgets.QLabel(self.frame)
+        self.open_door_3.setGeometry(QtCore.QRect(203, 315, 173, 161))
+        self.open_door_3.setText("")
+        self.open_door_3.setTextFormat(QtCore.Qt.RichText)
+        self.open_door_3.setPixmap(QtGui.QPixmap("Resources/elevator car from close to open.gif"))
+        self.open_door_3.setScaledContents(True)
+        self.open_door_3.setWordWrap(False)
+        self.open_door_3.setOpenExternalLinks(False)
+        self.open_door_3.setObjectName("open_door_3")
+        self.open_door_2 = QtWidgets.QLabel(self.frame)
+        self.open_door_2.setGeometry(QtCore.QRect(203, 450, 173, 161))
+        self.open_door_2.setText("")
+        self.open_door_2.setTextFormat(QtCore.Qt.RichText)
+        self.open_door_2.setPixmap(QtGui.QPixmap("Resources/elevator car from close to open.gif"))
+        self.open_door_2.setScaledContents(True)
+        self.open_door_2.setWordWrap(False)
+        self.open_door_2.setOpenExternalLinks(False)
+        self.open_door_2.setObjectName("open_door_2")
+        self.open_door_1 = QtWidgets.QLabel(self.frame)
+        self.open_door_1.setGeometry(QtCore.QRect(203, 588, 173, 161))
+        self.open_door_1.setText("")
+        self.open_door_1.setTextFormat(QtCore.Qt.RichText)
+        self.open_door_1.setPixmap(QtGui.QPixmap("Resources/elevator car from close to open.gif"))
+        self.open_door_1.setScaledContents(True)
+        self.open_door_1.setWordWrap(False)
+        self.open_door_1.setOpenExternalLinks(False)
+        self.open_door_1.setObjectName("open_door_1")
+        self.close_door_1 = QtWidgets.QLabel(self.frame)
+        self.close_door_1.setGeometry(QtCore.QRect(203, 588, 173, 161))
+        self.close_door_1.setText("")
+        self.close_door_1.setTextFormat(QtCore.Qt.RichText)
+        self.close_door_1.setPixmap(QtGui.QPixmap("Resources/elevator car from open to close.gif"))
+        self.close_door_1.setScaledContents(True)
+        self.close_door_1.setWordWrap(False)
+        self.close_door_1.setOpenExternalLinks(False)
+        self.close_door_1.setObjectName("close_door_1")
+        self.close_door_5 = QtWidgets.QLabel(self.frame)
+        self.close_door_5.setGeometry(QtCore.QRect(203, 40, 173, 161))
+        self.close_door_5.setText("")
+        self.close_door_5.setTextFormat(QtCore.Qt.RichText)
+        self.close_door_5.setPixmap(QtGui.QPixmap("Resources/elevator car from open to close.gif"))
+        self.close_door_5.setScaledContents(True)
+        self.close_door_5.setWordWrap(False)
+        self.close_door_5.setOpenExternalLinks(False)
+        self.close_door_5.setObjectName("close_door_5")
+        self.close_door_3 = QtWidgets.QLabel(self.frame)
+        self.close_door_3.setGeometry(QtCore.QRect(203, 315, 173, 161))
+        self.close_door_3.setText("")
+        self.close_door_3.setTextFormat(QtCore.Qt.RichText)
+        self.close_door_3.setPixmap(QtGui.QPixmap("Resources/elevator car from open to close.gif"))
+        self.close_door_3.setScaledContents(True)
+        self.close_door_3.setWordWrap(False)
+        self.close_door_3.setOpenExternalLinks(False)
+        self.close_door_3.setObjectName("close_door_3")
+        self.close_door_4 = QtWidgets.QLabel(self.frame)
+        self.close_door_4.setGeometry(QtCore.QRect(203, 178, 173, 161))
+        self.close_door_4.setText("")
+        self.close_door_4.setTextFormat(QtCore.Qt.RichText)
+        self.close_door_4.setPixmap(QtGui.QPixmap("Resources/elevator car from open to close.gif"))
+        self.close_door_4.setScaledContents(True)
+        self.close_door_4.setWordWrap(False)
+        self.close_door_4.setOpenExternalLinks(False)
+        self.close_door_4.setObjectName("close_door_4")
+        self.close_door_2 = QtWidgets.QLabel(self.frame)
+        self.close_door_2.setGeometry(QtCore.QRect(203, 450, 173, 161))
+        self.close_door_2.setText("")
+        self.close_door_2.setTextFormat(QtCore.Qt.RichText)
+        self.close_door_2.setPixmap(QtGui.QPixmap("Resources/elevator car from open to close.gif"))
+        self.close_door_2.setScaledContents(True)
+        self.close_door_2.setWordWrap(False)
+        self.close_door_2.setOpenExternalLinks(False)
+        self.close_door_2.setObjectName("close_door_2")
         self.label_10.raise_()
         self.Inside_Elvetor_Car.raise_()
         self.label_9.raise_()
         self.groupBox.raise_()
+        self.open_door_5.raise_()
+        self.label_7.raise_()
+        self.open_door_4.raise_()
+        self.open_door_3.raise_()
+        self.open_door_2.raise_()
+        self.open_door_1.raise_()
+        self.close_door_1.raise_()
+        self.close_door_5.raise_()
+        self.close_door_3.raise_()
+        self.close_door_4.raise_()
+        self.close_door_2.raise_()
         self.gridLayout_4.addWidget(self.frame, 0, 1, 1, 1)
         self.gridLayout.addLayout(self.gridLayout_4, 0, 2, 3, 1)
-
         self.retranslateUi(ProgramForm)
-
+        self.hide_gif()
 
 
         ################################# all the clicked.connect: #################################
@@ -754,22 +903,22 @@ class ElevatorGUI(object):
         self.Button_Key_Inside.clicked.connect(lambda: self.set_user("operator", self.Button_Sys_Onoff_Inside))
 
                           ## All the Sys_Onoff ##
-        self.Button_Sys_Onoff_Inside.clicked.connect(lambda: self.set_Sys_Onoff())
-        self.Button_Sys_Onoff_Floor_1.clicked.connect(lambda: self.set_Sys_Onoff())
-        self.Button_Sys_Onoff_Floor_2.clicked.connect(lambda: self.set_Sys_Onoff())
-        self.Button_Sys_Onoff_Floor_3.clicked.connect(lambda: self.set_Sys_Onoff())
-        self.Button_Sys_Onoff_Floor_4.clicked.connect(lambda: self.set_Sys_Onoff())
-        self.Button_Sys_Onoff_Floor_5.clicked.connect(lambda: self.set_Sys_Onoff())
+        self.Button_Sys_Onoff_Inside.clicked.connect(lambda: self.turn_on_off())
+        self.Button_Sys_Onoff_Floor_1.clicked.connect(lambda: self.turn_on_off())
+        self.Button_Sys_Onoff_Floor_2.clicked.connect(lambda: self.turn_on_off())
+        self.Button_Sys_Onoff_Floor_3.clicked.connect(lambda: self.turn_on_off())
+        self.Button_Sys_Onoff_Floor_4.clicked.connect(lambda: self.turn_on_off())
+        self.Button_Sys_Onoff_Floor_5.clicked.connect(lambda: self.turn_on_off())
 
                         ##All the Up and Down buttons ##
-        self.Button_Up_Floor_1.clicked.connect(lambda: self.floor_call(1))
-        self.Button_Up_Floor_2.clicked.connect(lambda: self.floor_call(2))
-        self.Button_Up_Floor_3.clicked.connect(lambda: self.floor_call(3))
-        self.Button_Up_Floor_4.clicked.connect(lambda: self.floor_call(4))
-        self.Button_Down_Floor_2.clicked.connect(lambda: self.floor_call(2))
-        self.Button_Down_Floor_3.clicked.connect(lambda: self.floor_call(3))
-        self.Button_Down_Floor_4.clicked.connect(lambda: self.floor_call(4))
-        self.Button_Down_Floor_5.clicked.connect(lambda: self.floor_call(5))
+        self.Button_Up_Floor_1.clicked.connect(lambda: self.move_up(1))
+        self.Button_Up_Floor_2.clicked.connect(lambda: self.move_up(2))
+        self.Button_Up_Floor_3.clicked.connect(lambda: self.move_up(3))
+        self.Button_Up_Floor_4.clicked.connect(lambda: self.move_up(4))
+        self.Button_Down_Floor_2.clicked.connect(lambda: self.move_down(2))
+        self.Button_Down_Floor_3.clicked.connect(lambda: self.move_down(3))
+        self.Button_Down_Floor_4.clicked.connect(lambda: self.move_down(4))
+        self.Button_Down_Floor_5.clicked.connect(lambda: self.move_down(5))
 
 
                          ## All the inside number buttons ##
@@ -784,8 +933,8 @@ class ElevatorGUI(object):
         # need the emergency function to work
         self.Button_Open_Door_Inside.clicked.connect(lambda: self.system.open_door())
         self.Button_Close_Door_Inside.clicked.connect(lambda: self.system.close_door())
-        # self.Button_Emergency_Inside.clecked.connect(lambda: self.system.)
-        self.Button_Stop_Inside.clicked.connect(lambda: self.system.get_car().stop())
+        self.Button_Emergency_Inside.clicked.connect(lambda: self.system.emergency_call())
+        self.Button_Stop_Inside.clicked.connect(lambda: self.system.in_emergency())
 
         # All the sensors: ##
         self.Button_S1.clicked.connect(lambda: self.smoke_button())
@@ -796,6 +945,18 @@ class ElevatorGUI(object):
 
 
         ################################# end of clicked.connect #################################
+
+        ################################# .gif #################################
+
+
+
+# open
+
+
+# close
+
+
+        ################################# end #################################
 
         QtCore.QMetaObject.connectSlotsByName(ProgramForm)
         ProgramForm.setTabOrder(self.Button_1_Inside, self.Button_2_Inside)
@@ -820,8 +981,7 @@ class ElevatorGUI(object):
         ProgramForm.setTabOrder(self.Display_Floor3, self.Button_Up_Floor_1)
         ProgramForm.setTabOrder(self.Button_Up_Floor_1, self.Display_Floor2)
         ProgramForm.setTabOrder(self.Display_Floor2, self.Display_Floor1)
-        ProgramForm.setTabOrder(self.Display_Floor1, self.lineEdit_6)
-        ProgramForm.setTabOrder(self.lineEdit_6, self.Button_Key_Floor1)
+        ProgramForm.setTabOrder(self.Display_Floor1, self.Button_Key_Floor1)
         ProgramForm.setTabOrder(self.Button_Key_Floor1, self.Button_Key_Floor4)
         ProgramForm.setTabOrder(self.Button_Key_Floor4, self.Button_Down_Floor_4)
         ProgramForm.setTabOrder(self.Button_Down_Floor_4, self.Button_Up_Floor_4)
@@ -845,13 +1005,20 @@ class ElevatorGUI(object):
             self.reset()
 
     def weight_button(self):
-        if self.system.get_sensor_controller().get_weight().get_measure() >= 1600.0:
-            weight = self.system.get_sensor_controller().get_weight()
-            self.system.get_sensor_controller().set_sensor_measure(weight, 3000)
-            self.Button_S2.setText("Stop testing Weight sensor")
-            self.lineEdit_6.setText("Activated")
+        if not self.lineEdit_wight.text() is "":
+            if float(self.lineEdit_wight.text()) >= 1.5:
+                weight = self.system.get_sensor_controller().get_weight()
+                weight.set_measure(float(self.lineEdit_wight.text()))
+                self.lineEdit_wight.clear()
+                self.Button_S2.setText("Stop testing Weight Sensor")
+                self.lineEdit_6.setText("Activated")
+            else:
+                self.lineEdit_wight.clear()
+                self.Button_S2.setText("The weight = ")
+                self.lineEdit_6.setText("Not Active")
+                self.reset()
         else:
-            self.Button_S2.setText("The Weight is over the limit")
+            self.Button_S2.setText("The weight = ")
             self.lineEdit_6.setText("Not Active")
             self.reset()
 
@@ -859,13 +1026,20 @@ class ElevatorGUI(object):
             # need some changes
 
     def alignment_button(self):
-        if self.system.get_sensor_controller().get_pos().get_measure() <= 0.5:
-            position = self.system.get_sensor_controller().get_pos()
-            self.system.get_sensor_controller().set_sensor_measure(position, 3000)
-            self.Button_S3.setText("Stop alignment testing")
-            self.lineEdit_6.setText("Activated")
+        if not self.lineEdit_Align.text() is "":
+            if float(self.lineEdit_Align.text()) >= 1.5:
+                pos = self.system.get_sensor_controller().get_pos()
+                pos.set_measure(float(self.lineEdit_Align.text()))
+                self.lineEdit_Align.clear()
+                self.Button_S3.setText("Stop testing Position Sensor")
+                self.lineEdit_6.setText("Activated")
+            else:
+                self.lineEdit_Align.clear()
+                self.Button_S3.setText("Not aligned by = ")
+                self.lineEdit_6.setText("Not Active")
+                self.reset()
         else:
-            self.Button_S3.setText("The Car is Not Aligned with the Floor")
+            self.Button_S3.setText("Not aligned by = ")
             self.lineEdit_6.setText("Not Active")
             self.reset()
 
@@ -874,25 +1048,31 @@ class ElevatorGUI(object):
             # need some changes
 
     def laser_sensor_button(self):
-        if self.system.get_sensor_controller().get_door().get_measure() == False:
+        if not self.system.get_sensor_controller().get_door().get_measure():
             door = self.system.get_sensor_controller().get_door()
-            self.system.get_sensor_controller().set_sensor_measure(door, True)
+            door.set_measure(True)
             self.Button_S4.setText("Stop testing laser sensor ")
-            self.lineEdit_6.setText("Activated")
+
         else:
             self.Button_S4.setText("There Is an Object between the Doors ")
-            self.lineEdit_6.setText("Not Active")
             self.reset()
 
 
     def Speed_Sensor_button(self):
-        if self.system.get_sensor_controller().get_weight().get_measure() <= 1600.0:
-            weight = self.system.get_sensor_controller().get_weight()
-            self.system.get_sensor_controller().set_sensor_measure(weight, 3000)
-            self.Button_S5.setText("Stop testing Speed Sensor")
-            self.lineEdit_6.setText("Activated")
+
+        if not self.lineEdit__speed.text() is "":
+            if float(self.lineEdit__speed.text()) >= 3.0:
+                speed = self.system.get_sensor_controller().get_speed()
+                speed.set_measure(float(self.lineEdit__speed.text()))
+                self.lineEdit__speed.clear()
+                self.Button_S5.setText("Stop testing Speed Sensor")
+                self.lineEdit_6.setText("Activated")
+            else:
+                self.Button_S5.setText("The speed =")
+                self.lineEdit_6.setText("Not Active")
+                self.reset()
         else:
-            self.Button_S5.setText("Check Speed Sensor")
+            self.Button_S5.setText("The speed =")
             self.lineEdit_6.setText("Not Active")
             self.reset()
 
@@ -900,13 +1080,15 @@ class ElevatorGUI(object):
 
         labelHide = True
 
-    def set_Sys_Onoff(self):
-        if self.labelHide == True:
+    def turn_on_off(self):
+        if self.system.is_on():
             self.label_6.hide()
             self.labelHide = False
+            self.system.turn_off()
         else:
             self.label_6.show()
             self.labelHide = True
+            self.system.turn_on()
 
     def Update_Display(self):
         self.Diplay_Inside.display(self.system.get_floor())
@@ -916,21 +1098,220 @@ class ElevatorGUI(object):
         self.Display_Floor4.setText(str(self.system.get_floor()))
         self.Display_Floor5.setText(str(self.system.get_floor()))
 
-
+    def hide_gif(self):
+        self.open_door_1.hide()
+        self.open_door_2.hide()
+        self.open_door_3.hide()
+        self.open_door_4.hide()
+        self.open_door_5.hide()
+        self.close_door_1.hide()
+        self.close_door_2.hide()
+        self.close_door_3.hide()
+        self.close_door_4.hide()
+        self.close_door_5.hide()
 
 
     def reset(self):
         self.system.reset()
 
-    def get_door(self):
-        if self.system.get_door() == True:
+    def open_door(self):
+        if self.system.get_floor() == 5:
             self.label_8.setText("Open")
-        elif self.system.get_door() == False:
+            self.open_door_5.show()
+
+            self.open_door_1.hide()
+            self.open_door_2.hide()
+            self.open_door_3.hide()
+            self.open_door_4.hide()
+
+            self.close_door_1.hide()
+            self.close_door_2.hide()
+            self.close_door_3.hide()
+            self.close_door_4.hide()
+            self.close_door_5.hide()
+            open_door_5_gif = QtGui.QMovie("Resources/elevator car from close to open.gif")
+            self.open_door_5.setMovie(open_door_5_gif)
+            open_door_5_gif.start()
+
+        elif self.system.get_floor() == 4:
+            self.label_12.setText("Open")
+            self.open_door_4.show()
+            self.open_door_1.hide()
+            self.open_door_2.hide()
+            self.open_door_3.hide()
+
+            self.open_door_5.hide()
+            self.close_door_1.hide()
+            self.close_door_2.hide()
+            self.close_door_3.hide()
+            self.close_door_4.hide()
+            self.close_door_5.hide()
+            open_door_4_gif = QtGui.QMovie("Resources/elevator car from close to open.gif")
+            self.open_door_4.setMovie(open_door_4_gif)
+            open_door_4_gif.start()
+
+        elif self.system.get_floor() == 3:
+            self.label_13.setText("Open")
+            self.open_door_3.show()
+            self.open_door_1.hide()
+            self.open_door_2.hide()
+
+            self.open_door_4.hide()
+            self.open_door_5.hide()
+            self.close_door_1.hide()
+            self.close_door_2.hide()
+            self.close_door_3.hide()
+            self.close_door_4.hide()
+            self.close_door_5.hide()
+            open_door_3_gif = QtGui.QMovie("Resources/elevator car from close to open.gif")
+            self.open_door_3.setMovie(open_door_3_gif)
+            open_door_3_gif.start()
+
+        elif self.system.get_floor() == 2:
+            self.label_14.setText("Open")
+            self.open_door_2.show()
+            self.open_door_1.hide()
+
+            self.open_door_3.hide()
+            self.open_door_4.hide()
+            self.open_door_5.hide()
+            self.close_door_1.hide()
+            self.close_door_2.hide()
+            self.close_door_3.hide()
+            self.close_door_4.hide()
+            self.close_door_5.hide()
+            open_door_2_gif = QtGui.QMovie("Resources/elevator car from close to open.gif")
+            self.open_door_2.setMovie(open_door_2_gif)
+            open_door_2_gif.start()
+
+        elif self.system.get_floor() == 1:
+            self.label_15.setText("Open")
+            self.open_door_1.show()
+
+            self.open_door_2.hide()
+            self.open_door_3.hide()
+            self.open_door_4.hide()
+            self.open_door_5.hide()
+            self.close_door_1.hide()
+            self.close_door_2.hide()
+            self.close_door_3.hide()
+            self.close_door_4.hide()
+            self.close_door_5.hide()
+            open_door_1_gif = QtGui.QMovie("Resources/elevator car from close to open.gif")
+            self.open_door_1.setMovie(open_door_1_gif)
+            open_door_1_gif.start()
+
+
+
+    def close_door(self):
+
+
+        if self.system.get_floor() == 5:
             self.label_8.setText("Close")
+            self.close_door_5.show()
+            self.open_door_1.hide()
+            self.open_door_2.hide()
+            self.open_door_3.hide()
+            self.open_door_4.hide()
+            self.open_door_5.hide()
+            self.close_door_1.hide()
+            self.close_door_2.hide()
+            self.close_door_3.hide()
+            self.close_door_4.hide()
+
+            close_door_5_gif = QtGui.QMovie("Resources/elevator car from open to close.gif")
+            self.close_door_5.setMovie(close_door_5_gif)
+            close_door_5_gif.start()
+
+        elif self.system.get_floor() == 4:
+            self.label_12.setText("Close")
+            self.close_door_4.show()
+            self.open_door_1.hide()
+            self.open_door_2.hide()
+            self.open_door_3.hide()
+            self.open_door_4.hide()
+            self.open_door_5.hide()
+            self.close_door_1.hide()
+            self.close_door_2.hide()
+            self.close_door_3.hide()
+
+            self.close_door_5.hide()
+            close_door_4_gif = QtGui.QMovie("Resources/elevator car from open to close.gif")
+            self.close_door_4.setMovie(close_door_4_gif)
+            close_door_4_gif.start()
+
+        elif self.system.get_floor() == 3:
+            self.label_13.setText("Close")
+            self.close_door_3.show()
+            self.open_door_1.hide()
+            self.open_door_2.hide()
+            self.open_door_3.hide()
+            self.open_door_4.hide()
+            self.open_door_5.hide()
+            self.close_door_1.hide()
+            self.close_door_2.hide()
+
+            self.close_door_4.hide()
+            self.close_door_5.hide()
+            close_door_3_gif = QtGui.QMovie("Resources/elevator car from open to close.gif")
+            self.close_door_3.setMovie(close_door_3_gif)
+            close_door_3_gif.start()
+
+        elif self.system.get_floor() == 2:
+            self.label_14.setText("Close")
+
+            self.close_door_2.show()
+            self.open_door_1.hide()
+            self.open_door_2.hide()
+            self.open_door_3.hide()
+            self.open_door_4.hide()
+            self.open_door_5.hide()
+            self.close_door_1.hide()
+
+            self.close_door_3.hide()
+            self.close_door_4.hide()
+            self.close_door_5.hide()
+            close_door_2_gif = QtGui.QMovie("Resources/elevator car from open to close.gif")
+            self.close_door_2.setMovie(close_door_2_gif)
+            close_door_2_gif.start()
+
+        elif self.system.get_floor() == 1:
+            self.label_15.setText("Close")
+            self.close_door_1.show()
+            self.open_door_1.hide()
+            self.open_door_2.hide()
+            self.open_door_3.hide()
+            self.open_door_4.hide()
+            self.open_door_5.hide()
+
+            self.close_door_2.hide()
+            self.close_door_3.hide()
+            self.close_door_4.hide()
+            self.close_door_5.hide()
+            close_door_1_gif = QtGui.QMovie("Resources/elevator car from open to close.gif")
+            self.close_door_1.setMovie(close_door_1_gif)
+            close_door_1_gif.start()
+
+
+
+
+
+
+
+
+
+
+
 
 
     def floor_call (self, floor):
         self.system.add_request("move", floor, self.user)
+
+    def move_down(self, floor):
+        self.system.add_down("move", floor, self.user)
+
+    def move_up(self, floor):
+        self.system.add_up("move", floor, self.user)
 
     def move(self, y):
         new_pos = self.Inside_Elvetor_Car.y() + y
@@ -1005,22 +1386,18 @@ class ElevatorGUI(object):
         self.Button_1_Inside.setText(_translate("ProgramForm", "1"))
         self.Button_Emergency_Inside.setText(_translate("ProgramForm", "Emergency Call"))
         self.Button_Open_Door_Inside.setText(_translate("ProgramForm", "Open"))
-        self.Button_S4.setText(_translate("ProgramForm", "There Is an Object between the Doors"))
-        self.Button_S3.setText(_translate("ProgramForm", "The Car is Not Aligned with the Floor"))
-        self.Button_S6.setText(_translate("ProgramForm", "the is not closing"))
-        self.Button_S5.setText(_translate("ProgramForm", "Check Speed Sensor"))
         self.Button_S1.setText(_translate("ProgramForm", "There is smoke"))
-        self.Button_S2.setText(_translate("ProgramForm", "The Weight is over the limit"))
+        self.Button_S5.setText(_translate("ProgramForm", "The speed ="))
+        self.Button_S3.setText(_translate("ProgramForm", "The Car is Not Aligned with the Floor by ="))
         self.label_28.setText(_translate("ProgramForm", "Scenarios"))
-        self.Button_S7.setText(_translate("ProgramForm", "the wight is over the limet"))
-        self.Button_S8.setText(_translate("ProgramForm", "sensor3"))
+        self.Button_S4.setText(_translate("ProgramForm", "There Is an Object between the Doors"))
+        self.Button_S2.setText(_translate("ProgramForm", "The weight = "))
         self.groupBox_4.setTitle(_translate("ProgramForm", "system"))
         self.groupBox.setTitle(_translate("ProgramForm", "door situation"))
-        self.label_15.setText(_translate("ProgramForm", "close"))
-        self.label_13.setText(_translate("ProgramForm", "close"))
-        self.label_14.setText(_translate("ProgramForm", "close"))
-        self.label_12.setText(_translate("ProgramForm", "close"))
-        self.label_8.setText(_translate("ProgramForm", "close"))
-
+        self.label_15.setText(_translate("ProgramForm", "Close"))
+        self.label_13.setText(_translate("ProgramForm", "Close"))
+        self.label_14.setText(_translate("ProgramForm", "Close"))
+        self.label_12.setText(_translate("ProgramForm", "Close"))
+        self.label_8.setText(_translate("ProgramForm", "Close"))
 
 

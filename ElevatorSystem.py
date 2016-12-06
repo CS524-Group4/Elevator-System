@@ -7,12 +7,14 @@ from twilio.rest import TwilioRestClient
 
 class ElevatorSystem:
     def __init__(self):
-        self.r_queue = PriorityQueue()
+        self.up_queue = PriorityQueue()
+        self.down_queue = PriorityQueue()
         self.car = CarController()
         self.sensors = SensorController()
         self.door_time = 3
         self.in_call = False
         self.emergency = False
+        self.on = True
 
     #creates and add requests to queue
     def add_request(self, request, floor, user):
@@ -22,34 +24,69 @@ class ElevatorSystem:
             new_request = Request(0, request, floor, user)
         elif user == "firefighter":
             new_request = Request(0, request, floor, user)
-        self.r_queue.put(new_request)
+
+        if floor < self.get_floor():
+            print( "Floor " + str(floor) +"added to down queue")
+            self.down_queue.put(new_request)
+        else:
+            print("Floor " + str(floor) + "added to up queue")
+            self.up_queue.put(new_request)
+
+    def add_down(self, request, floor, user):
+        if user == "passenger":
+            new_request = Request(2, request, floor, user)
+        elif user == "operator":
+            new_request = Request(0, request, floor, user)
+        elif user == "firefighter":
+            new_request = Request(0, request, floor, user)
+
+        self.down_queue.put(new_request)
+
+    def add_up(self, request, floor, user):
+        if user == "passenger":
+            new_request = Request(2, request, floor, user)
+        elif user == "operator":
+            new_request = Request(0, request, floor, user)
+        elif user == "firefighter":
+            new_request = Request(0, request, floor, user)
+
+        self.up_queue.put(new_request)
 
     #gets next request from queue
     def __next_request(self):
-        return self.r_queue.get()
+        if self.car.get_direction() == "up" and not self.up_queue.empty():
+            print("Going up")
+            return self.up_queue.get()
+        else:
+            if not self.down_queue.empty():
+                return self.down_queue.get()
+            else:
+                return self.up_queue.get()
 
     #checks if queue is empty
     def is_empty(self):
-        if self.r_queue.empty():
+        if self.up_queue.empty() and self.down_queue.empty():
             return True
         return False
 
-    #gets size of queue
-    def request_size(self):
-        return self.r_queue.qsize()
-
     def run(self):
-        if not self.emergency:
-            self.check_arrival()
-            if not self.is_empty() and not self.in_call:
-                self.in_call = True
-                cur_request = self.__next_request()
-                if cur_request.request == "move":
-                    self.move_elevator(cur_request.floor, cur_request.user)
+        if self.on:
+            if self.get_floor() is 5:
+                self.car.set_direction("down")
+            elif self.get_floor() is 1:
+                self.car.set_direction("up")
+
+            if not self.emergency:
+                self.check_arrival()
+                if not self.is_empty() and not self.in_call:
+                    self.in_call = True
+                    cur_request = self.__next_request()
+                    if cur_request.request == "move":
+                        self.move_elevator(cur_request.floor, cur_request.user)
+                else:
+                    print("Waiting for request")
             else:
-                print("Waiting for request")
-        else:
-            print("In emergency")
+                print("In emergency")
 
     def reset(self):
         self.emergency = False
@@ -86,8 +123,8 @@ class ElevatorSystem:
         return self.car
 
     #Checks all sensors to see if its safe
-    def is_safe(self):
-        safe = self.sensors.check_all_sensors()
+    def check_emergency(self):
+        safe = self.sensors.check_emergency_sensors()
         if not safe and not self.emergency:
             self.in_emergency()
 
@@ -102,7 +139,7 @@ class ElevatorSystem:
 
     def check_arrival(self):
         if not self.car.get_move():
-            if self.check_sensor("position"):
+            if self.sensors.get_pos().is_safe():
                 self.open_door()
                 self.in_call = False
 
@@ -113,29 +150,34 @@ class ElevatorSystem:
         self.move_elevator(self.get_floor(), "operator")
         self.emergency = True
 
-    #Checks a specfic sensor
-    def check_sensor(self, measure_sensor):
-        if measure_sensor == "position":
-            safe = self.sensors.get_pos().is_safe()
-        elif measure_sensor == "door":
-            safe = self.sensors.get_door().is_safe()
-        elif measure_sensor == "weight":
-            safe = self.sensors.get_weight().is_safe()
-        elif measure_sensor == "smoke":
-            safe = self.sensors.get_smoke().is_safe()
-        elif measure_sensor == "speed":
-            safe = self.sensors.get_speed().is_safe()
-        if safe:
-            self.emergency = False
-            return True
-        else:
-            self.emergency = True
-            return False
+    def safe_boarding(self):
+        return self.sensors.check_boarding_sensors()
 
     def in_emergency(self):
         self.emergency_call()
-        self.r_queue.queue.clear()
+        self.up_queue.queue.clear()
+        self.down_queue.queue.clear()
         self.move_near_floor()
+
+    def turn_off(self):
+        self.up_queue.queue.clear()
+        self.down_queue.queue.clear()
+        self.move_near_floor()
+        self.on = False
+
+    def turn_on(self):
+        self.up_queue.queue.clear()
+        self.down_queue.queue.clear()
+        self.on = True
+        self.emergency = False
+        self.in_call = False
+        self.sensors.reset_all_sensors()
+
+    def is_on(self):
+        if self.on:
+            return True
+        else:
+            return False
 
     def emergency_call(self):
         ACCOUNT_SID = "AC5825ac73a66a689e26884d0eb8090a12"
@@ -148,6 +190,8 @@ class ElevatorSystem:
             from_="+12404398153",
             body="There is a emergency with Elevator 1B5 in Hodson Hall, please attend to immediately",
         )
+
+        self.sensors.warning_text()
 
 
 

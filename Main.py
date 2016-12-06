@@ -1,12 +1,12 @@
 import pygame
 import os
-import time
+import datetime
+from datetime import timedelta
 import sys
 from PyQt5 import QtWidgets
 from ElevatorGUI import ElevatorGUI
 
 pygame.init()
-
 
 class main():
     def __init__(self):
@@ -22,22 +22,21 @@ class main():
         self.clock = pygame.time.Clock()
         self.crashed = False
         self.waiting_time = 6
-        self.dir = "up"
         self.move = False
-        self.last = time.time()
-        self.sim_loop()
-    
-    def sim_loop(self):
+        self.last = datetime.datetime.now()
+        self.warning_time = 3
         app = QtWidgets.QApplication(sys.argv)
         ProgramForm = QtWidgets.QWidget()
         ui = self.gui
         ui.setupUi(ProgramForm)
         ProgramForm.show()
+        self.sim_loop()
+    
+    def sim_loop(self):
 
         e_sys = self.gui.get_sys()
         car = self.gui.get_sys().get_car()
-
-        now = 0
+        now = datetime.datetime.now()
     
         while not self.crashed:
             for event in pygame.event.get():
@@ -48,52 +47,47 @@ class main():
                         self.crashed = True
 
             self.update(e_sys,car)
-    
-            # move function
+
             if self.move:
-                self.move_car(car, self.gui.Inside_Elvetor_Car.y(), self.dir)
+                self.move_car(car, self.gui.Inside_Elvetor_Car.y())
             else:
-                #Waits for the waiting time to run another request
-                if now - self.last >= self.waiting_time:
-                    e_sys.run()
-                else:
-                    now = time.time()
+                if e_sys.get_emergency():
+                    pygame.mixer.music.load(os.path.abspath("Resources/crazy-bell.ogg"))
+                    pygame.mixer.music.play()
+                if now - self.last >= timedelta(seconds=self.waiting_time):
+                    if not e_sys.safe_boarding():
+                        self.last = datetime.datetime.now() + timedelta(seconds=self.warning_time)
+                        pygame.mixer.music.load(os.path.abspath("Resources/crazy-bell.ogg"))
+                        pygame.mixer.music.play()
+                    else:
+                        self.gui.close_door()
+                        e_sys.run()
+
+
+                now = datetime.datetime.now()
+
     
             self.clock.tick(60)
 
-    def move_car(self, car, elevator_pos, dir):
-        if dir == "up":
+    def move_car(self, car, elevator_pos):
+        if elevator_pos > self.dest_pos:
             self.gui.move(self.y_change)
             elevator_pos = self.gui.Inside_Elvetor_Car.y()
-            if elevator_pos <= self.dest_pos or elevator_pos <= self.fifth_floor:
-                car.stop()
-                self.last = time.time()
-                pygame.mixer.music.load(os.path.abspath("Resources/elevator-ding.ogg"))
-                pygame.mixer.music.play()
-                self.gui.get_door()
-        elif dir == "down":
+            self.update_floor(elevator_pos, car)
+        elif elevator_pos < self.dest_pos:
             self.gui.move(abs(self.y_change))
             elevator_pos = self.gui.Inside_Elvetor_Car.y()
-            if elevator_pos >= self.dest_pos or elevator_pos <= self.fifth_floor:
-                car.stop()
-                self.last = time.time()
-                pygame.mixer.music.load(os.path.abspath("Resources/elevator-ding.ogg"))
-                pygame.mixer.music.play()
-                self.gui.get_door()
-
-        if elevator_pos % self.dis_per_floor == 0:
-            if dir == "up":
-                car.set_floor(car.get_floor() + 1)
-                self.gui.Update_Display()
-            elif dir == "down":
-                car.set_floor(car.get_floor() - 1)
-                self.gui.Update_Display()
+            self.update_floor(elevator_pos, car)
+        else:
+            car.stop()
+            self.gui.open_door()
+            self.last = datetime.datetime.now()
+            pygame.mixer.music.load(os.path.abspath("Resources/elevator-ding.ogg"))
+            pygame.mixer.music.play()
 
     def update(self, sys, car):
-        sys.is_safe()
+        sys.check_emergency()
         self.move = car.get_move()
-        print("Move: " + str(self.move))
-        self.dir = car.get_dir()
         floor = car.get_req_floor()
         if floor is 1:
             self.dest_pos = self.first_floor
@@ -106,12 +100,14 @@ class main():
         elif floor is 5:
             self.dest_pos = self.fifth_floor
 
-    def get_time(self):
-        return time.time()
-
-
-
-
+    def update_floor(self, pos, car):
+        if pos % self.dis_per_floor == 0:
+            if pos > self.dest_pos:
+                car.set_floor(car.get_floor() + 1)
+                self.gui.Update_Display()
+            elif pos < self.dest_pos:
+                car.set_floor(car.get_floor() - 1)
+                self.gui.Update_Display()
 
 
 main()
