@@ -7,7 +7,8 @@ from twilio.rest import TwilioRestClient
 
 class ElevatorSystem:
     def __init__(self):
-        self.r_queue = PriorityQueue()
+        self.up_queue = PriorityQueue()
+        self.down_queue = PriorityQueue()
         self.car = CarController()
         self.sensors = SensorController()
         self.door_time = 3
@@ -23,24 +24,38 @@ class ElevatorSystem:
             new_request = Request(0, request, floor, user)
         elif user == "firefighter":
             new_request = Request(0, request, floor, user)
-        self.r_queue.put(new_request)
+
+        if floor < self.get_floor():
+            print( "Floor " + str(floor) +"added to down queue")
+            self.down_queue.put(new_request)
+        else:
+            print("Floor " + str(floor) + "added to up queue")
+            self.up_queue.put(new_request)
 
     #gets next request from queue
     def __next_request(self):
-        return self.r_queue.get()
+        if self.car.get_direction() == "up" and not self.up_queue.empty():
+            print("Going up")
+            return self.up_queue.get()
+        else:
+            if not self.down_queue.empty():
+                return self.down_queue.get()
+            else:
+                return self.up_queue.get()
 
     #checks if queue is empty
     def is_empty(self):
-        if self.r_queue.empty():
+        if self.up_queue.empty() and self.down_queue.empty():
             return True
         return False
 
-    #gets size of queue
-    def request_size(self):
-        return self.r_queue.qsize()
-
     def run(self):
         if self.on:
+            if self.get_floor() is 5:
+                self.car.set_direction("down")
+            elif self.get_floor() is 1:
+                self.car.set_direction("up")
+
             if not self.emergency:
                 self.check_arrival()
                 if not self.is_empty() and not self.in_call:
@@ -120,16 +135,19 @@ class ElevatorSystem:
 
     def in_emergency(self):
         self.emergency_call()
-        self.r_queue.queue.clear()
+        self.up_queue.queue.clear()
+        self.down_queue.queue.clear()
         self.move_near_floor()
 
     def turn_off(self):
-        self.r_queue.queue.clear()
+        self.up_queue.queue.clear()
+        self.down_queue.queue.clear()
         self.move_near_floor()
         self.on = False
 
     def turn_on(self):
-        self.r_queue.queue.clear()
+        self.up_queue.queue.clear()
+        self.down_queue.queue.clear()
         self.on = True
         self.emergency = False
         self.in_call = False

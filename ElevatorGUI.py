@@ -10,7 +10,7 @@ import pygame
 import os
 import time
 from PyQt5 import QtCore, QtGui, QtWidgets
-from ElevatorSystem import ElevatorSystem
+from ElevatorSystemv2 import ElevatorSystem
 
 class ElevatorGUI(object):
     def setupUi(self, ProgramForm):
