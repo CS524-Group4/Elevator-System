@@ -3,6 +3,7 @@ from Sensors.PositionSensor import PositionSensor
 from Sensors.WeightSensor import WeightSensor
 from Sensors.SmokeSensor import SmokeSensor
 from Sensors.SpeedSensor import SpeedSensor
+from twilio.rest import TwilioRestClient
 
 
 class SensorController ():
@@ -106,6 +107,28 @@ class SensorController ():
 
     def get_smoke(self):
         return self.smoke_sensor
+
+    def warning_text(self):
+
+        text = "Warning: "
+        if not self.speed_sensor.is_safe():
+            text += "Elevator is going too fast;"
+        if not self.smoke_sensor.is_safe():
+            text += "There is a fire in the elevator;"
+        if not self.pos_sensor.is_safe():
+            text+= "The car is out of alignment with the floor;"
+
+        ACCOUNT_SID = "AC5825ac73a66a689e26884d0eb8090a12"
+        AUTH_TOKEN = "cfde9e715e58e1ccc74f52a7ec0fb639"
+
+        client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+
+        client.messages.create(
+            to="+12404467736",
+            from_="+12404398153",
+            body=text,
+        )
+
 
     def reset_sensor(self, sensor):
         try:

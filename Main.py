@@ -26,14 +26,14 @@ class main():
         self.move = False
         self.last = datetime.datetime.now()
         self.warning_time = 3
-        self.sim_loop()
-    
-    def sim_loop(self):
         app = QtWidgets.QApplication(sys.argv)
         ProgramForm = QtWidgets.QWidget()
         ui = self.gui
         ui.setupUi(ProgramForm)
         ProgramForm.show()
+        self.sim_loop()
+    
+    def sim_loop(self):
 
         e_sys = self.gui.get_sys()
         car = self.gui.get_sys().get_car()

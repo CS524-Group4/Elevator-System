@@ -191,6 +191,8 @@ class ElevatorSystem:
             body="There is a emergency with Elevator 1B5 in Hodson Hall, please attend to immediately",
         )
 
+        self.sensors.warning_text()
+
 
 
 
