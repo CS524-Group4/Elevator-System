@@ -8,7 +8,6 @@ from ElevatorGUI import ElevatorGUI
 
 pygame.init()
 
-
 class main():
     def __init__(self):
         self.gui = ElevatorGUI()
@@ -37,7 +36,6 @@ class main():
 
         e_sys = self.gui.get_sys()
         car = self.gui.get_sys().get_car()
-        #self.gui.open_door()
         now = datetime.datetime.now()
     
         while not self.crashed:
