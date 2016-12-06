@@ -774,15 +774,119 @@ class ElevatorGUI(object):
         font.setWeight(75)
         self.label_8.setFont(font)
         self.label_8.setObjectName("label_8")
+        self.open_door_5 = QtWidgets.QLabel(self.frame)
+        self.open_door_5.setGeometry(QtCore.QRect(203, 40, 173, 161))
+        self.open_door_5.setText("")
+        self.open_door_5.setTextFormat(QtCore.Qt.RichText)
+        self.open_door_5.setPixmap(QtGui.QPixmap("Resources/elevator car from close to open.gif"))
+        self.open_door_5.setScaledContents(True)
+        self.open_door_5.setWordWrap(False)
+        self.open_door_5.setOpenExternalLinks(False)
+        self.open_door_5.setObjectName("open_door_5")
+        self.label_7 = QtWidgets.QLabel(self.frame)
+        self.label_7.setGeometry(QtCore.QRect(10, 510, 47, 13))
+        self.label_7.setText("")
+        self.label_7.setObjectName("label_7")
+        self.open_door_4 = QtWidgets.QLabel(self.frame)
+        self.open_door_4.setGeometry(QtCore.QRect(203, 178, 173, 161))
+        self.open_door_4.setText("")
+        self.open_door_4.setTextFormat(QtCore.Qt.RichText)
+        self.open_door_4.setPixmap(QtGui.QPixmap("Resources/elevator car from close to open.gif"))
+        self.open_door_4.setScaledContents(True)
+        self.open_door_4.setWordWrap(False)
+        self.open_door_4.setOpenExternalLinks(False)
+        self.open_door_4.setObjectName("open_door_4")
+        self.open_door_3 = QtWidgets.QLabel(self.frame)
+        self.open_door_3.setGeometry(QtCore.QRect(203, 315, 173, 161))
+        self.open_door_3.setText("")
+        self.open_door_3.setTextFormat(QtCore.Qt.RichText)
+        self.open_door_3.setPixmap(QtGui.QPixmap("Resources/elevator car from close to open.gif"))
+        self.open_door_3.setScaledContents(True)
+        self.open_door_3.setWordWrap(False)
+        self.open_door_3.setOpenExternalLinks(False)
+        self.open_door_3.setObjectName("open_door_3")
+        self.open_door_2 = QtWidgets.QLabel(self.frame)
+        self.open_door_2.setGeometry(QtCore.QRect(203, 450, 173, 161))
+        self.open_door_2.setText("")
+        self.open_door_2.setTextFormat(QtCore.Qt.RichText)
+        self.open_door_2.setPixmap(QtGui.QPixmap("Resources/elevator car from close to open.gif"))
+        self.open_door_2.setScaledContents(True)
+        self.open_door_2.setWordWrap(False)
+        self.open_door_2.setOpenExternalLinks(False)
+        self.open_door_2.setObjectName("open_door_2")
+        self.open_door_1 = QtWidgets.QLabel(self.frame)
+        self.open_door_1.setGeometry(QtCore.QRect(203, 588, 173, 161))
+        self.open_door_1.setText("")
+        self.open_door_1.setTextFormat(QtCore.Qt.RichText)
+        self.open_door_1.setPixmap(QtGui.QPixmap("Resources/elevator car from close to open.gif"))
+        self.open_door_1.setScaledContents(True)
+        self.open_door_1.setWordWrap(False)
+        self.open_door_1.setOpenExternalLinks(False)
+        self.open_door_1.setObjectName("open_door_1")
+        self.close_door_1 = QtWidgets.QLabel(self.frame)
+        self.close_door_1.setGeometry(QtCore.QRect(203, 588, 173, 161))
+        self.close_door_1.setText("")
+        self.close_door_1.setTextFormat(QtCore.Qt.RichText)
+        self.close_door_1.setPixmap(QtGui.QPixmap("Resources/elevator car from open to close.gif"))
+        self.close_door_1.setScaledContents(True)
+        self.close_door_1.setWordWrap(False)
+        self.close_door_1.setOpenExternalLinks(False)
+        self.close_door_1.setObjectName("close_door_1")
+        self.close_door_5 = QtWidgets.QLabel(self.frame)
+        self.close_door_5.setGeometry(QtCore.QRect(203, 40, 173, 161))
+        self.close_door_5.setText("")
+        self.close_door_5.setTextFormat(QtCore.Qt.RichText)
+        self.close_door_5.setPixmap(QtGui.QPixmap("Resources/elevator car from open to close.gif"))
+        self.close_door_5.setScaledContents(True)
+        self.close_door_5.setWordWrap(False)
+        self.close_door_5.setOpenExternalLinks(False)
+        self.close_door_5.setObjectName("close_door_5")
+        self.close_door_3 = QtWidgets.QLabel(self.frame)
+        self.close_door_3.setGeometry(QtCore.QRect(203, 315, 173, 161))
+        self.close_door_3.setText("")
+        self.close_door_3.setTextFormat(QtCore.Qt.RichText)
+        self.close_door_3.setPixmap(QtGui.QPixmap("Resources/elevator car from open to close.gif"))
+        self.close_door_3.setScaledContents(True)
+        self.close_door_3.setWordWrap(False)
+        self.close_door_3.setOpenExternalLinks(False)
+        self.close_door_3.setObjectName("close_door_3")
+        self.close_door_4 = QtWidgets.QLabel(self.frame)
+        self.close_door_4.setGeometry(QtCore.QRect(203, 178, 173, 161))
+        self.close_door_4.setText("")
+        self.close_door_4.setTextFormat(QtCore.Qt.RichText)
+        self.close_door_4.setPixmap(QtGui.QPixmap("Resources/elevator car from open to close.gif"))
+        self.close_door_4.setScaledContents(True)
+        self.close_door_4.setWordWrap(False)
+        self.close_door_4.setOpenExternalLinks(False)
+        self.close_door_4.setObjectName("close_door_4")
+        self.close_door_2 = QtWidgets.QLabel(self.frame)
+        self.close_door_2.setGeometry(QtCore.QRect(203, 450, 173, 161))
+        self.close_door_2.setText("")
+        self.close_door_2.setTextFormat(QtCore.Qt.RichText)
+        self.close_door_2.setPixmap(QtGui.QPixmap("Resources/elevator car from open to close.gif"))
+        self.close_door_2.setScaledContents(True)
+        self.close_door_2.setWordWrap(False)
+        self.close_door_2.setOpenExternalLinks(False)
+        self.close_door_2.setObjectName("close_door_2")
         self.label_10.raise_()
         self.Inside_Elvetor_Car.raise_()
         self.label_9.raise_()
         self.groupBox.raise_()
+        self.open_door_5.raise_()
+        self.label_7.raise_()
+        self.open_door_4.raise_()
+        self.open_door_3.raise_()
+        self.open_door_2.raise_()
+        self.open_door_1.raise_()
+        self.close_door_1.raise_()
+        self.close_door_5.raise_()
+        self.close_door_3.raise_()
+        self.close_door_4.raise_()
+        self.close_door_2.raise_()
         self.gridLayout_4.addWidget(self.frame, 0, 1, 1, 1)
         self.gridLayout.addLayout(self.gridLayout_4, 0, 2, 3, 1)
-
         self.retranslateUi(ProgramForm)
-
+        self.hide_gif()
 
 
         ################################# all the clicked.connect: #################################
@@ -842,6 +946,18 @@ class ElevatorGUI(object):
 
         ################################# end of clicked.connect #################################
 
+        ################################# .gif #################################
+
+
+
+# open
+
+
+# close
+
+
+        ################################# end #################################
+
         QtCore.QMetaObject.connectSlotsByName(ProgramForm)
         ProgramForm.setTabOrder(self.Button_1_Inside, self.Button_2_Inside)
         ProgramForm.setTabOrder(self.Button_2_Inside, self.Button_3_Inside)
@@ -865,8 +981,7 @@ class ElevatorGUI(object):
         ProgramForm.setTabOrder(self.Display_Floor3, self.Button_Up_Floor_1)
         ProgramForm.setTabOrder(self.Button_Up_Floor_1, self.Display_Floor2)
         ProgramForm.setTabOrder(self.Display_Floor2, self.Display_Floor1)
-        ProgramForm.setTabOrder(self.Display_Floor1, self.lineEdit_6)
-        ProgramForm.setTabOrder(self.lineEdit_6, self.Button_Key_Floor1)
+        ProgramForm.setTabOrder(self.Display_Floor1, self.Button_Key_Floor1)
         ProgramForm.setTabOrder(self.Button_Key_Floor1, self.Button_Key_Floor4)
         ProgramForm.setTabOrder(self.Button_Key_Floor4, self.Button_Down_Floor_4)
         ProgramForm.setTabOrder(self.Button_Down_Floor_4, self.Button_Up_Floor_4)
@@ -962,7 +1077,17 @@ class ElevatorGUI(object):
         self.Display_Floor4.setText(str(self.system.get_floor()))
         self.Display_Floor5.setText(str(self.system.get_floor()))
 
-
+    def hide_gif(self):
+        self.open_door_1.hide()
+        self.open_door_2.hide()
+        self.open_door_3.hide()
+        self.open_door_4.hide()
+        self.open_door_5.hide()
+        self.close_door_1.hide()
+        self.close_door_2.hide()
+        self.close_door_3.hide()
+        self.close_door_4.hide()
+        self.close_door_5.hide()
 
 
     def reset(self):
@@ -971,25 +1096,191 @@ class ElevatorGUI(object):
     def open_door(self):
         if self.system.get_floor() == 5:
             self.label_8.setText("Open")
+            self.open_door_5.show()
+
+            self.open_door_1.hide()
+            self.open_door_2.hide()
+            self.open_door_3.hide()
+            self.open_door_4.hide()
+
+            self.close_door_1.hide()
+            self.close_door_2.hide()
+            self.close_door_3.hide()
+            self.close_door_4.hide()
+            self.close_door_5.hide()
+            open_door_5_gif = QtGui.QMovie("Resources/elevator car from close to open.gif")
+            self.open_door_5.setMovie(open_door_5_gif)
+            open_door_5_gif.start()
 
         elif self.system.get_floor() == 4:
             self.label_12.setText("Open")
+            self.open_door_4.show()
+            self.open_door_1.hide()
+            self.open_door_2.hide()
+            self.open_door_3.hide()
+
+            self.open_door_5.hide()
+            self.close_door_1.hide()
+            self.close_door_2.hide()
+            self.close_door_3.hide()
+            self.close_door_4.hide()
+            self.close_door_5.hide()
+            open_door_4_gif = QtGui.QMovie("Resources/elevator car from close to open.gif")
+            self.open_door_4.setMovie(open_door_4_gif)
+            open_door_4_gif.start()
 
         elif self.system.get_floor() == 3:
             self.label_13.setText("Open")
+            self.open_door_3.show()
+            self.open_door_1.hide()
+            self.open_door_2.hide()
+
+            self.open_door_4.hide()
+            self.open_door_5.hide()
+            self.close_door_1.hide()
+            self.close_door_2.hide()
+            self.close_door_3.hide()
+            self.close_door_4.hide()
+            self.close_door_5.hide()
+            open_door_3_gif = QtGui.QMovie("Resources/elevator car from close to open.gif")
+            self.open_door_3.setMovie(open_door_3_gif)
+            open_door_3_gif.start()
 
         elif self.system.get_floor() == 2:
             self.label_14.setText("Open")
+            self.open_door_2.show()
+            self.open_door_1.hide()
+
+            self.open_door_3.hide()
+            self.open_door_4.hide()
+            self.open_door_5.hide()
+            self.close_door_1.hide()
+            self.close_door_2.hide()
+            self.close_door_3.hide()
+            self.close_door_4.hide()
+            self.close_door_5.hide()
+            open_door_2_gif = QtGui.QMovie("Resources/elevator car from close to open.gif")
+            self.open_door_2.setMovie(open_door_2_gif)
+            open_door_2_gif.start()
 
         elif self.system.get_floor() == 1:
             self.label_15.setText("Open")
+            self.open_door_1.show()
+
+            self.open_door_2.hide()
+            self.open_door_3.hide()
+            self.open_door_4.hide()
+            self.open_door_5.hide()
+            self.close_door_1.hide()
+            self.close_door_2.hide()
+            self.close_door_3.hide()
+            self.close_door_4.hide()
+            self.close_door_5.hide()
+            open_door_1_gif = QtGui.QMovie("Resources/elevator car from close to open.gif")
+            self.open_door_1.setMovie(open_door_1_gif)
+            open_door_1_gif.start()
+
+
 
     def close_door(self):
-        self.label_8.setText("Close")
-        self.label_12.setText("Close")
-        self.label_13.setText("Close")
-        self.label_14.setText("Close")
-        self.label_15.setText("Close")
+
+
+        if self.system.get_floor() == 5:
+            self.label_8.setText("Close")
+            self.close_door_5.show()
+            self.open_door_1.hide()
+            self.open_door_2.hide()
+            self.open_door_3.hide()
+            self.open_door_4.hide()
+            self.open_door_5.hide()
+            self.close_door_1.hide()
+            self.close_door_2.hide()
+            self.close_door_3.hide()
+            self.close_door_4.hide()
+
+            close_door_5_gif = QtGui.QMovie("Resources/elevator car from open to close.gif")
+            self.close_door_5.setMovie(close_door_5_gif)
+            close_door_5_gif.start()
+
+        elif self.system.get_floor() == 4:
+            self.label_12.setText("Close")
+            self.close_door_4.show()
+            self.open_door_1.hide()
+            self.open_door_2.hide()
+            self.open_door_3.hide()
+            self.open_door_4.hide()
+            self.open_door_5.hide()
+            self.close_door_1.hide()
+            self.close_door_2.hide()
+            self.close_door_3.hide()
+
+            self.close_door_5.hide()
+            close_door_4_gif = QtGui.QMovie("Resources/elevator car from open to close.gif")
+            self.close_door_4.setMovie(close_door_4_gif)
+            close_door_4_gif.start()
+
+        elif self.system.get_floor() == 3:
+            self.label_13.setText("Close")
+            self.close_door_3.show()
+            self.open_door_1.hide()
+            self.open_door_2.hide()
+            self.open_door_3.hide()
+            self.open_door_4.hide()
+            self.open_door_5.hide()
+            self.close_door_1.hide()
+            self.close_door_2.hide()
+
+            self.close_door_4.hide()
+            self.close_door_5.hide()
+            close_door_3_gif = QtGui.QMovie("Resources/elevator car from open to close.gif")
+            self.close_door_3.setMovie(close_door_3_gif)
+            close_door_3_gif.start()
+
+        elif self.system.get_floor() == 2:
+            self.label_14.setText("Close")
+
+            self.close_door_2.show()
+            self.open_door_1.hide()
+            self.open_door_2.hide()
+            self.open_door_3.hide()
+            self.open_door_4.hide()
+            self.open_door_5.hide()
+            self.close_door_1.hide()
+
+            self.close_door_3.hide()
+            self.close_door_4.hide()
+            self.close_door_5.hide()
+            close_door_2_gif = QtGui.QMovie("Resources/elevator car from open to close.gif")
+            self.close_door_2.setMovie(close_door_2_gif)
+            close_door_2_gif.start()
+
+        elif self.system.get_floor() == 1:
+            self.label_15.setText("Close")
+            self.close_door_1.show()
+            self.open_door_1.hide()
+            self.open_door_2.hide()
+            self.open_door_3.hide()
+            self.open_door_4.hide()
+            self.open_door_5.hide()
+
+            self.close_door_2.hide()
+            self.close_door_3.hide()
+            self.close_door_4.hide()
+            self.close_door_5.hide()
+            close_door_1_gif = QtGui.QMovie("Resources/elevator car from open to close.gif")
+            self.close_door_1.setMovie(close_door_1_gif)
+            close_door_1_gif.start()
+
+
+
+
+
+
+
+
+
+
+
 
 
     def floor_call (self, floor):
