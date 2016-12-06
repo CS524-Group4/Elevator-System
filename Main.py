@@ -56,7 +56,7 @@ class main():
                 if now - self.last >= timedelta(seconds=self.waiting_time):
                     if not e_sys.safe_boarding():
                         self.last = datetime.datetime.now() + timedelta(seconds=self.warning_time)
-                        pygame.mixer.music.load(os.path.abspath("Resources/elevator-ding.ogg"))
+                        pygame.mixer.music.load(os.path.abspath("Resources/crazy-bell.ogg"))
                         pygame.mixer.music.play()
                     else:
                         e_sys.run()
