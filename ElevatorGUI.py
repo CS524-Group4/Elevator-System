@@ -754,12 +754,12 @@ class ElevatorGUI(object):
         self.Button_Key_Inside.clicked.connect(lambda: self.set_user("operator", self.Button_Sys_Onoff_Inside))
 
                           ## All the Sys_Onoff ##
-        self.Button_Sys_Onoff_Inside.clicked.connect(lambda: self.set_Sys_Onoff())
-        self.Button_Sys_Onoff_Floor_1.clicked.connect(lambda: self.set_Sys_Onoff())
-        self.Button_Sys_Onoff_Floor_2.clicked.connect(lambda: self.set_Sys_Onoff())
-        self.Button_Sys_Onoff_Floor_3.clicked.connect(lambda: self.set_Sys_Onoff())
-        self.Button_Sys_Onoff_Floor_4.clicked.connect(lambda: self.set_Sys_Onoff())
-        self.Button_Sys_Onoff_Floor_5.clicked.connect(lambda: self.set_Sys_Onoff())
+        self.Button_Sys_Onoff_Inside.clicked.connect(lambda: self.turn_on_off())
+        self.Button_Sys_Onoff_Floor_1.clicked.connect(lambda: self.turn_on_off())
+        self.Button_Sys_Onoff_Floor_2.clicked.connect(lambda: self.turn_on_off())
+        self.Button_Sys_Onoff_Floor_3.clicked.connect(lambda: self.turn_on_off())
+        self.Button_Sys_Onoff_Floor_4.clicked.connect(lambda: self.turn_on_off())
+        self.Button_Sys_Onoff_Floor_5.clicked.connect(lambda: self.turn_on_off())
 
                         ##All the Up and Down buttons ##
         self.Button_Up_Floor_1.clicked.connect(lambda: self.floor_call(1))
@@ -900,13 +900,15 @@ class ElevatorGUI(object):
 
         labelHide = True
 
-    def set_Sys_Onoff(self):
-        if self.labelHide == True:
+    def turn_on_off(self):
+        if self.system.is_on():
             self.label_6.hide()
             self.labelHide = False
+            self.system.turn_off()
         else:
             self.label_6.show()
             self.labelHide = True
+            self.system.turn_on()
 
     def Update_Display(self):
         self.Diplay_Inside.display(self.system.get_floor())

@@ -13,6 +13,7 @@ class ElevatorSystem:
         self.door_time = 3
         self.in_call = False
         self.emergency = False
+        self.on = True
 
     #creates and add requests to queue
     def add_request(self, request, floor, user):
@@ -39,17 +40,18 @@ class ElevatorSystem:
         return self.r_queue.qsize()
 
     def run(self):
-        if not self.emergency:
-            self.check_arrival()
-            if not self.is_empty() and not self.in_call:
-                self.in_call = True
-                cur_request = self.__next_request()
-                if cur_request.request == "move":
-                    self.move_elevator(cur_request.floor, cur_request.user)
+        if self.on:
+            if not self.emergency:
+                self.check_arrival()
+                if not self.is_empty() and not self.in_call:
+                    self.in_call = True
+                    cur_request = self.__next_request()
+                    if cur_request.request == "move":
+                        self.move_elevator(cur_request.floor, cur_request.user)
+                else:
+                    print("Waiting for request")
             else:
-                print("Waiting for request")
-        else:
-            print("In emergency")
+                print("In emergency")
 
     def reset(self):
         self.emergency = False
@@ -136,6 +138,24 @@ class ElevatorSystem:
         self.emergency_call()
         self.r_queue.queue.clear()
         self.move_near_floor()
+
+    def turn_off(self):
+        self.r_queue.queue.clear()
+        self.move_near_floor()
+        self.on = False
+
+    def turn_on(self):
+        self.r_queue.queue.clear()
+        self.on = True
+        self.emergency = False
+        self.in_call = False
+        self.sensors.reset_all_sensors()
+
+    def is_on(self):
+        if self.on:
+            return True
+        else:
+            return False
 
     def emergency_call(self):
         ACCOUNT_SID = "AC5825ac73a66a689e26884d0eb8090a12"
